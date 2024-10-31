@@ -1,0 +1,41 @@
+<template>
+    <div class="p-4 flex flex-col gap-4">
+        <div class="flex justify-between items-center">
+            <h1 class="font-semibold text-3xl">Update Category</h1>
+        </div>
+        <form @submit.prevent="forms.put(route('categories.update', props.category.id))" class="bg-white p-4 rounded-sm flex flex-col gap-4" method="POST">
+            <div>
+                <p>Code</p>
+                <input type="text" v-model="forms.code">
+            </div>
+            <div>
+                <p>Name</p>
+                <input type="text" v-model="forms.name">
+            </div>
+            <div class="flex justify-between">
+                <Link :href="route('categories.index')" class="border border-primary py-2 text-sm px-4">
+                    Back
+                </Link>
+                <button class="bg-primary py-2 text-sm px-4" type="submit">
+                    Update
+                </button>
+            </div>
+        </form>
+    </div>
+</template>
+<script setup lang="ts">
+import { Link, useForm } from '@inertiajs/vue3';
+
+const props = defineProps<{
+    category: {
+        id: string,
+        code: string,
+        name: string
+    }
+}>()
+
+const forms = useForm({
+    code: props.category.code,
+    name: props.category.name
+});
+</script>
