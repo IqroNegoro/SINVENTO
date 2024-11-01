@@ -6,11 +6,17 @@
         <form @submit.prevent="forms.post(route('categories.store'))" class="bg-white p-4 rounded-sm flex flex-col gap-4" method="POST">
             <div>
                 <p>Code</p>
-                <input type="text" v-model="forms.code" :disabled="forms.processing">
+                <input :class="{'border border-red-500': forms.errors.code}" type="text" v-model="forms.code" :disabled="forms.processing">
+                <p v-if="forms.errors.code" class="text-red-500">
+                    {{ forms.errors.code }}
+                </p>
             </div>
             <div>
                 <p>Name</p>
-                <input type="text" v-model="forms.name" :disabled="forms.processing">
+                <input :class="{'border border-red-500': forms.errors.name}" type="text" v-model="forms.name" :disabled="forms.processing">
+                <p v-if="forms.errors.name" class="text-red-500">
+                    {{ forms.errors.name }}
+                </p>
             </div>
             <div class="flex justify-between">
                 <Link :href="route('categories.index')" class="border border-primary py-2 text-sm px-4" :class="{'pointer-events-none': forms.processing}">

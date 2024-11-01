@@ -29,7 +29,7 @@
                 <p> {{ props.total_orders }} Orders</p>
             </div>
         </div>
-        <h1>Revenue Chart</h1>
+        <h1>Revenue Chart This Month</h1>
         <div id="chart">
             <VueApexChart type="area" height="350" :options="chartOptions" :series="series" />
         </div>
@@ -129,16 +129,34 @@ const chartOptions = {
     markers: {
         size: 0,
     },
+    yaxis: {
+        labels: {
+            formatter: function (val) {
+                return formatRp(val);
+            },
+        },
+        title: {
+            text: 'Revenue'
+        },
+    },
     fill: {
         colors: ["#181818", "#534523"]
     },
     xaxis: {
         type: 'datetime',
     },
+    tooltip: {
+        shared: false,
+        y: {
+        formatter: function (val) {
+                return formatRp(val)
+            }
+        }
+    }
 }
           
 const formatRp = (num : number) => new Intl.NumberFormat("id-ID", {
     currency: "IDR",
     style: "currency",
-}).format(num);
+}).format(num ?? 0);
 </script>

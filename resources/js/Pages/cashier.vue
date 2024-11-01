@@ -60,10 +60,10 @@
                         <p>{{ formatRp(total) }} </p>
                     </div>
                     <div class="flex gap-2 w-full">
-                        <button @click="forms.reset()" type="reset" class="border border-primary py-2 w-full" :disabled="forms.processing">
+                        <button @click="forms.reset()" type="reset" class="border border-primary py-2 w-full" :disabled="forms.processing || !forms.items.length">
                             Cancel
                         </button>
-                        <button class="bg-primary py-2 w-full flex justify-center items-center" type="submit" :disabled="forms.processing">
+                        <button class="bg-primary py-2 w-full flex justify-center items-center" type="submit" :disabled="forms.processing || !forms.items.length">
                             <i class="bx bx-loader-alt bx-spin" v-if="forms.processing"></i>
                             <p v-else>
                                 Pay

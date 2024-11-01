@@ -24,7 +24,7 @@ class UpdateItemRequest extends FormRequest
     {
         return [
             "name" => "required|string",
-            "category_id" => "nullable",
+            "category_id" => "nullable|exists:categories,id",
             "image" => "nullable|image|extensions:jpg,png,webp,jpeg",
             "stock" => "required|integer|min:1",
             "buy_price" => "required|integer|min:1",

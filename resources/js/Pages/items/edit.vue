@@ -22,7 +22,10 @@
             </div>
             <div>
                 <p>Name</p>
-                <input type="text" name="name" v-model="forms.name" :disabled="forms.processing" placeholder="Bimoli">
+                <input :class="{'border border-red-500': $page.props.errors.name}" type="text" name="name" v-model="forms.name" :disabled="forms.processing" placeholder="Bimoli">
+                <p v-if="$page.props.errors.name" class="text-red-500">
+                    {{ $page.props.errors.name }}
+                </p>
             </div>
             <div>
                 <p>Category</p>
@@ -33,21 +36,30 @@
             </div>
             <div>
                 <p>Stock</p>
-                <input type="number" placeholder="0" name="stock" v-model="forms.stock" :disabled="forms.processing">
+                <input :class="{'border border-red-500': $page.props.errors.stock}" type="number" placeholder="0" name="stock" v-model="forms.stock" :disabled="forms.processing">
+                <p v-if="$page.props.errors.stock" class="text-red-500">
+                    {{ $page.props.errors.stock }}
+                </p>
             </div>
             <div>
                 <p>Buy Price</p>
-                <div class="flex items-center border rounded-sm">
+                <div :class="{'border border-red-500': $page.props.errors.buy_price}" class="flex items-center border rounded-sm">
                     <p class="pl-2">Rp.</p>
                     <input type="number" class="border-none" placeholder="0" name="buy_price" v-model="forms.buy_price" :disabled="forms.processing">
                 </div>
+                <p v-if="$page.props.errors.buy_price" class="text-red-500">
+                    {{ $page.props.errors.buy_price }}
+                </p>
             </div>
             <div>
                 <p>Sell Price</p>
-                <div class="flex items-center border rounded-sm">
+                <div :class="{'border border-red-500': $page.props.errors.sell_price}" class="flex items-center border rounded-sm">
                     <p class="pl-2">Rp.</p>
                     <input type="number" class="border-none" placeholder="0" name="sell_price" v-model="forms.sell_price" :disabled="forms.processing">
                 </div>
+                <p v-if="$page.props.errors.sell_price" class="text-red-500">
+                    {{ $page.props.errors.sell_price }}
+                </p>
             </div>
             <div class="flex justify-between">
                 <Link :href="route('items.index')" class="border border-primary py-2 text-sm px-4" :class="{'pointer-events-none': forms.processing}">

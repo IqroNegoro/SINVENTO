@@ -6,11 +6,17 @@
         <form @submit.prevent="forms.put(route('categories.update', props.category.id))" class="bg-white p-4 rounded-sm flex flex-col gap-4" method="POST">
             <div>
                 <p>Code</p>
-                <input type="text" v-model="forms.code">
+                <input :class="{'border border-red-500': forms.errors.code}" type="text" v-model="forms.code">
+                <p v-if="forms.errors.code" class="text-red-500">
+                    {{ forms.errors.code }}
+                </p>
             </div>
             <div>
                 <p>Name</p>
-                <input type="text" v-model="forms.name">
+                <input :class="{'border border-red-500': forms.errors.name}" type="text" v-model="forms.name">
+                <p v-if="forms.errors.name" class="text-red-500">
+                    {{ forms.errors.name }}
+                </p>
             </div>
             <div class="flex justify-between">
                 <Link :href="route('categories.index')" class="border border-primary py-2 text-sm px-4">
