@@ -13,6 +13,10 @@
                     <option value="total">Total</option>
                 </select>
             </div>
+            <Link :href="route('sales.report')" class="bg-red-500 px-3 py-1 rounded-sm flex gap-2 items-center text-white font-medium">
+                <i class='bx bxs-file-pdf'></i>
+                PDF
+            </Link>
             <!-- <div class="flex flex-row justify-center items-center border">
                 <input type="text" class="bg-transparent border-0" placeholder="Search..." v-model="search" @keyup.enter="router.get('', { search })">
                 <button class="h-full flex justify-center items-center p-3 bg-primary"
@@ -82,8 +86,7 @@
 <script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
 import moment from "moment";
-import { Ref } from 'vue';
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 
 interface Sale {
     id: number,

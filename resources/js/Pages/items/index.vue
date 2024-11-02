@@ -45,9 +45,11 @@
                         <td> {{ i + 1 }} </td>
                         <td> {{ item.category?.name || '-' }} </td>
                         <td>
-                            <div class="flex flex-row items-center gap-4">
+                            <div class="flex flex-row justify-start items-center gap-4">
                                 <img :src="`/storage/${item.image}`" class="w-24 h-24 aspect-square object-cover rounded-sm" :alt="item.name" loading="lazy" :class="{'grayscale': item.stock <= 5}">
-                                {{ item.name }}
+                                <p class="text-left">
+                                    {{ item.name }}
+                                </p>
                             </div>
                          </td>
                         <td :class="{'text-red-500 font-bold': item.stock <= 5}"> {{ item.stock }} </td>

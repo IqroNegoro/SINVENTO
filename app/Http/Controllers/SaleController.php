@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
 use Inertia\Inertia;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class SaleController extends Controller
 {
@@ -70,5 +71,15 @@ class SaleController extends Controller
             return back()->with("success", "Success delete record");
         }
         return back()->with("error", "Error delete record, try again");
+    }
+
+    public function report() {
+        // return view("report", [
+        //     "sales" => Sale::all(["total", "created_at"])
+        // ]);
+        $pdf = PDF::loadView('report', [
+            "sales" => Sale::all(["total", "created_at"])
+        ])->setPaper("A4");
+        return $pdf->stream('report.pdf');
     }
 }
