@@ -1,6 +1,5 @@
 <template>
-    <!-- {{ $page.props }} -->
-    <div class="p-4 flex flex-col gap-4">
+    <div class="p-4 flex flex-col gap-4 h-dvh overflow-y-auto">
         <div class="flex justify-between items-center">
             <h1 class="font-semibold text-3xl">Categories</h1>
             <Link :href="route('categories.create')"

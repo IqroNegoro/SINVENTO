@@ -53,7 +53,15 @@
 }
 
 @layer components {
-    .active {
-        @apply bg-primary text-white duration-150 transition-colors;
-    }   
+    .link-active {
+        @apply bg-primary text-white;
+    }
+
+    .link-btn {
+        @apply flex justify-start font-medium text-xl items-center pl-5 p-4 gap-8 rounded-sm duration-150 transition-colors hover:link-active;
+    }
+
+    nav.active p, nav.active h1 {
+        @apply transition-opacity duration-150;
+    }
 }

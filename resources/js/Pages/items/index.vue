@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 flex flex-col gap-4">
+    <div class="p-4 flex flex-col gap-4 h-dvh overflow-y-auto">
         <div class="flex justify-between items-center">
             <h1 class="font-semibold text-3xl">Items</h1>
             <Link :href="route('items.create')" class="px-2 py-1 flex justify-center items-center bg-primary rounded-md text-white">
@@ -46,11 +46,11 @@
                         <td> {{ item.category?.name || '-' }} </td>
                         <td>
                             <div class="flex flex-row items-center gap-4">
-                                <img :src="`/storage/${item.image}`" class="w-24 h-24 aspect-square object-cover rounded-sm" :alt="item.name" loading="lazy">
+                                <img :src="`/storage/${item.image}`" class="w-24 h-24 aspect-square object-cover rounded-sm" :alt="item.name" loading="lazy" :class="{'grayscale': item.stock <= 5}">
                                 {{ item.name }}
                             </div>
                          </td>
-                        <td> {{ item.stock }} </td>
+                        <td :class="{'text-red-500 font-bold': item.stock <= 5}"> {{ item.stock }} </td>
                         <td> {{ formatRp(item.buy_price) }} </td>
                         <td> {{ formatRp(item.sell_price) }} </td>
                         <td>

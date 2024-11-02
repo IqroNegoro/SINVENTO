@@ -1,43 +1,43 @@
 <template>
-    <div class="flex flex-row w-full h-dvh">
-        <div class="min-w-72 p-4 flex flex-col gap-16">
-            <div class="w-full flex justify-between h-max">
-                <h1 class="font-medium text-2xl">Dashboard</h1>
-                <button class="flex justify-center items-center text-xl hover:bg-primary hover:text-white transition-colors duration-150 p-2 rounded-full">
-                    <i class="bx bx-chevrons-left"></i>
+    <div class="flex flex-row w-full h-dvh overflow-hidden">
+        <nav :class="{'w-96': lock, 'w-[calc(23px*4)]': !lock}" class="hover:w-96 group transition-[width] duration-300 p-4 flex flex-col gap-16 active overflow-clip">
+            <div class="w-full flex justify-between h-max relative">
+                <h1 class="font-medium text-2xl" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Dashboard</h1>
+                <button class="w-max absolute top-1/2 -translate-y-1/2 group-hover:translate-x-0 group-hover:right-0 flex justify-center items-center text-xl hover:bg-primary hover:text-white transition-all duration-150 p-2 rounded-full" :class="{'bg-primary right-0 translate-x-0': lock, 'right-1/2 translate-x-1/2': !lock}" @click="lock = !lock">
+                    <i :class="{'rotate-180': lock}" class="bx bx-chevrons-right group-hover:rotate-180 duration-300 transition-transform"></i>
                 </button>
             </div>
             <div class="flex flex-col gap-2">
-                <Link :href="route('dashboard')" class="flex justify-start font-medium text-xl items-center hover:active p-4 gap-4 rounded-sm" :class="{'active': $page.url.startsWith('/dashboard')}">
+                <Link :href="route('dashboard')" class="link-btn" :class="{'link-active': $page.url.startsWith('/dashboard')}">
                     <i class="bx bxs-dashboard"></i>
-                    <p>Dashboard</p>
+                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Dashboard</p>
                 </Link>
-                <Link :href="route('user.index')" class="flex justify-start font-medium text-xl items-center p-4 gap-4 rounded-sm hover:active" :class="{'active': $page.url.startsWith('/user')}">
+                <Link :href="route('user.index')" class="link-btn" :class="{'link-active': $page.url.startsWith('/user')}">
                     <i class="bx bx-user"></i>
-                    <p>User</p>
+                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">User</p>
                 </Link>
-                <Link :href="route('items.index')" class="flex justify-start font-medium text-xl items-center p-4 gap-4 rounded-sm hover:active" :class="{'active': $page.url.startsWith('/items')}">
+                <Link :href="route('items.index')" class="link-btn" :class="{'link-active': $page.url.startsWith('/items')}">
                     <i class="bx bx-package"></i>
-                    <p>Items</p>
+                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Items</p>
                 </Link>
-                <Link :href="route('categories.index')" class="flex justify-start font-medium text-xl items-center p-4 gap-4 rounded-sm hover:active" :class="{'active': $page.url.startsWith('/categories')}">
+                <Link :href="route('categories.index')" class="link-btn" :class="{'link-active': $page.url.startsWith('/categories')}">
                     <i class="bx bx-list-ul"></i>
-                    <p>Categories</p>
+                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Categories</p>
                 </Link>
-                <Link :href="route('sales.index')" class="flex justify-start font-medium text-xl items-center p-4 gap-4 rounded-sm hover:active" :class="{'active': $page.url.startsWith('/sales')}">
+                <Link :href="route('sales.index')" class="link-btn" :class="{'link-active': $page.url.startsWith('/sales')}">
                     <i class="bx bx-dollar"></i>
-                    <p>Sales</p>
+                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Sales</p>
                 </Link>
-                <Link :href="route('cashier.index')" class="flex justify-start font-medium text-xl items-center p-4 gap-4 rounded-sm hover:active" :class="{'active': $page.url.startsWith('/cashier')}">
+                <Link :href="route('cashier.index')" class="link-btn" :class="{'link-active': $page.url.startsWith('/cashier')}">
                     <i class="bx bx-cart"></i>
-                    <p>Cashier</p>
+                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Cashier</p>
                 </Link>
-                <button @click="router.delete(route('logout'))" class="flex justify-start font-medium text-xl items-center p-4 gap-4 rounded-sm hover:active w-full">
+                <button @click="router.delete(route('logout'))" class="link-btn w-full">
                     <i class="bx bx-log-out"></i>
-                    <p>Log Out</p>
+                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Log Out</p>
                 </button>
             </div>
-        </div>
+        </nav>
         <div class="bg-[#F6F6F6] w-full">
             <slot  />
         </div>
@@ -49,7 +49,10 @@
         </div>
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
+import { Ref, ref } from 'vue';
+
+const lock : Ref<boolean> = ref(false);
 
 </script>

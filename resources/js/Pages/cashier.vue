@@ -2,10 +2,10 @@
     <div class="p-4 flex flex-col gap-4 h-dvh overflow-hidden">
         <h1 class="font-semibold text-3xl">Cashier</h1>
         <div class="flex gap-2 w-full h-full overflow-y-auto overflow-hidden">
-            <div class="grid grid-flow-row grid-cols-4 p-4 gap-4 bg-white overflow-y-auto w-full h-full">
+            <div class="grid grid-flow-row grid-cols-4 p-4 gap-4 items-start justify-start bg-white overflow-y-auto w-full h-full">
                 <button v-for="item in props.items" :key="item.id" @click="handleAddItem(item)" class="flex flex-col justify-start gap-2">
                     <img :src="`/storage/${item.image}`" :alt="item.name" class="w-32 rounded-sm aspect-square object-cover object-center" :class="{'grayscale': item.stock == 0}">
-                    <p class="font-semibold text-sm"> {{ item.name }} </p>
+                    <p class="font-semibold text-sm text-left"> {{ item.name }} </p>
                     <p class="font-medium text-xs">{{ formatRp(item.buy_price) }} </p>
                     <p class="font-light text-xs">x{{ item.stock }}</p>
                 </button>
@@ -30,7 +30,7 @@
                     <template v-if="forms.items.length">
                     <table class="table-fixed" cellpadding="16">
                         <tbody>
-                                <tr v-for="(item, i) in forms.items" :key="item.id" class="text-center text-xs">
+                                <tr v-for="item in forms.items" :key="item.id" class="text-center text-xs">
                                     <td> {{ item.name }} </td>
                                     <td>
                                         <input type="tel" :value="item.qty" class="w-10" @input="handleQty($event, item)">
