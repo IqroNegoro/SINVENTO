@@ -11,7 +11,6 @@ use Inertia\Inertia;
 class DashboardController extends Controller
 {
     public function index() {
-        // dd();
         return Inertia::render("index", [
             "total_revenue" => Sale::whereDate('created_at', Carbon::today())->get("total")->sum("total"),
             "total_items" => Item::count(),

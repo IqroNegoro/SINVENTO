@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
@@ -9,6 +10,7 @@ use Inertia\Inertia;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SaleController extends Controller
 {
@@ -77,17 +79,29 @@ class SaleController extends Controller
 
     public function report(Request $request) {
         $request->validate([
-            "date" => "required|array"
+            "date" => "required|array",
+            "type" => "required|string"
         ]);
 
         $sale = Sale::whereBetween("created_at", $request->date)->get(["total", "created_at"]);
 
-        $pdf = PDF::loadView('report', [
-            "sales" => $sale,
-            "total" => $sale->sum("total"),
-            "dates" => [Carbon::createFromDate($request->date[0])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->year]
-        ])->setPaper("A4");
+        // return view("report",[
+        //     "sales" => $sale,
+        //     "total" => $sale->sum("total"),
+        //     "dates" => [Carbon::createFromDate($request->date[0])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->year]
+        // ]);
 
-        return $pdf->stream('report.pdf');
+        if ($request->type == 'pdf') {
+            $pdf = PDF::loadView('pdf', [
+                "sales" => $sale,
+                "total" => $sale->sum("total"),
+                "dates" => [Carbon::createFromDate($request->date[0])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->year]
+            ])->setPaper("A4");
+
+            return $pdf->stream('report.pdf');
+        } else {
+            Excel::download(new UsersExport, "sale.pdf");
+        }
+
     }
 }
