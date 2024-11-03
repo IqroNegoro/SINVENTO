@@ -7,6 +7,8 @@ use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
 use Inertia\Inertia;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
@@ -73,13 +75,19 @@ class SaleController extends Controller
         return back()->with("error", "Error delete record, try again");
     }
 
-    public function report() {
-        // return view("report", [
-        //     "sales" => Sale::all(["total", "created_at"])
-        // ]);
+    public function report(Request $request) {
+        $request->validate([
+            "date" => "required|array"
+        ]);
+
+        $sale = Sale::whereBetween("created_at", $request->date)->get(["total", "created_at"]);
+
         $pdf = PDF::loadView('report', [
-            "sales" => Sale::all(["total", "created_at"])
+            "sales" => $sale,
+            "total" => $sale->sum("total"),
+            "dates" => [Carbon::createFromDate($request->date[0])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->year]
         ])->setPaper("A4");
+
         return $pdf->stream('report.pdf');
     }
 }

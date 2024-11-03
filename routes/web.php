@@ -29,7 +29,7 @@ Route::middleware("auth")->group(function() {
     
     Route::resource("categories", CategoryController::class);
 
-    Route::get("sales/report", [SaleController::class, "report"])->name("sales.report");
+    Route::post("sales/report", [SaleController::class, "report"])->name("sales.report");
     Route::resource("sales", SaleController::class);
 
     Route::get("/cashier", [CashierController::class, "index"])->name("cashier.index");
