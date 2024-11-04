@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\SalesExport;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('/', function () {
     return Inertia::render("index");
@@ -29,7 +31,9 @@ Route::middleware("auth")->group(function() {
     
     Route::resource("categories", CategoryController::class);
 
-    Route::post("sales/report", [SaleController::class, "report"])->name("sales.report");
+    Route::get("sales/report/pdf", [SaleController::class, "pdf"])->name("sales.report.pdf");
+    Route::get("sales/report/excel", [SaleController::class, "excel"])->name("sales.report.excel");
+    
     Route::resource("sales", SaleController::class);
 
     Route::get("/cashier", [CashierController::class, "index"])->name("cashier.index");

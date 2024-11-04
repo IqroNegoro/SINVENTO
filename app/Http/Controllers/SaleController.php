@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Export\SaleExport;
+use App\Exports\SalesExport;
 use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
@@ -10,6 +10,7 @@ use Inertia\Inertia;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SaleController extends Controller
@@ -77,31 +78,35 @@ class SaleController extends Controller
         return back()->with("error", "Error delete record, try again");
     }
 
-    public function report(Request $request) {
-        $request->validate([
-            "date" => "required|array",
-            "type" => "required|string"
+    public function pdf() {
+        request()->validate([
+            "startDate" => "required",
+            "endDate" => "required",
         ]);
 
-        $sale = Sale::whereBetween("created_at", $request->date)->get(["total", "created_at"]);
+        $sale = Sale::whereBetween("created_at", [request("startDate"), request("endDate")])->get(["total", "created_at"]);
 
         // return view("report",[
         //     "sales" => $sale,
         //     "total" => $sale->sum("total"),
-        //     "dates" => [Carbon::createFromDate($request->date[0])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->year]
+        //     "dates" => [Carbon::createFromDate(request("date")[0])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate(request("date")[1])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate(request("date")[1])->year]
         // ]);
 
-        if ($request->type == 'pdf') {
-            $pdf = PDF::loadView('pdf', [
-                "sales" => $sale,
-                "total" => $sale->sum("total"),
-                "dates" => [Carbon::createFromDate($request->date[0])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate($request->date[1])->year]
-            ])->setPaper("A4");
+        $pdf = PDF::loadView('pdf', [
+            "sales" => $sale,
+            "total" => $sale->sum("total"),
+            "dates" => [Carbon::createFromDate(request("startDate"))->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate(request("endDate"))->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate(request("endDate"))->year]
+        ])->setPaper("A4");
 
-            return $pdf->stream('report.pdf');
-        } else {
-            Excel::download(new SaleExport, "sale.xlsx");
-        }
+        return $pdf->stream('report.pdf');
+    }
 
+    public function excel() {
+        request()->validate([
+            "startDate" => "required",
+            "endDate" => "required",
+        ]);
+
+        return Excel::download(new SalesExport(request("startDate"), request("endDate")), "sales.xlsx");
     }
 }
