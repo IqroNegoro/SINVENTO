@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\UsersExport;
+use App\Export\SaleExport;
 use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
@@ -100,7 +100,7 @@ class SaleController extends Controller
 
             return $pdf->stream('report.pdf');
         } else {
-            Excel::download(new UsersExport, "sale.pdf");
+            Excel::download(new SaleExport, "sale.xlsx");
         }
 
     }

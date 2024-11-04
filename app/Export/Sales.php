@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Exports;
+namespace App\Export;
 
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class UsersExport implements FromCollection
+class SaleExport implements FromCollection
 {
     public function collection()
     {

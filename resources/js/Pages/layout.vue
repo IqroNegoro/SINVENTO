@@ -16,13 +16,13 @@
                     <i class="bx bx-user"></i>
                     <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">User</p>
                 </Link>
-                <Link :href="route('items.index')" class="link-btn" :class="{'link-active': $page.url.startsWith('/items')}">
-                    <i class="bx bx-package"></i>
-                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Items</p>
-                </Link>
                 <Link :href="route('categories.index')" class="link-btn" :class="{'link-active': $page.url.startsWith('/categories')}">
                     <i class="bx bx-list-ul"></i>
                     <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Categories</p>
+                </Link>
+                <Link :href="route('items.index')" class="link-btn" :class="{'link-active': $page.url.startsWith('/items')}">
+                    <i class="bx bx-package"></i>
+                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Items</p>
                 </Link>
                 <Link :href="route('sales.index')" class="link-btn" :class="{'link-active': $page.url.startsWith('/sales')}">
                     <i class="bx bx-dollar"></i>
