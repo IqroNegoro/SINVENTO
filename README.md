@@ -6,6 +6,7 @@ Take control of your store with an app designed for simplicity and efficiency. W
 
 ### Main Features
 - **Built-in Cashier**: Process sales directly within the app, making transactions quick and hassle-free.
+- **Monthly Report**: Don't take your time to create a bunch of reports of transactions, just one click and the reports are ready to see.
 - **Complete Inventory Control**: Manage categories, track items, and monitor sales effortlessly—all in one place.
 - **Data at a Glance**: View real-time charts, track daily revenue, and check total items in a simple, intuitive dashboard.
 
