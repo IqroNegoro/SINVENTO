@@ -101,35 +101,13 @@
 import { Link, router } from '@inertiajs/vue3';
 import { ref, Ref } from 'vue';
 
-interface Category {
-    id: number,
-    code: string,
-    name: string,
-    createdAt: Date,
-    updatedAt: Date,
-}
-
-interface Item {
-    id: number,
-    category_id: number,
-    category: Category,
-    user_id: number,
-    name: string,
-    image: string,
-    stock: number,
-    sell_price: number,
-    buy_price: number
-    createdAt: Date,
-    updatedAt: Date,
-}
-
 const props = defineProps<{
     items: {
         from: number,
         to: number,
         total: number,
         data: Item[]
-        links: any,
+        links: Link[],
     }
 }>();
 

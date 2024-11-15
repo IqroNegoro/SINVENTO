@@ -71,21 +71,10 @@
 import { Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
-    categories: {
-        id: number,
-        code: string,
-        name: string,
-    }[]
+    categories: Category[]
 }>();
 
-const forms = useForm<{
-    name: string | null,
-    category_id: number | string,
-    image: File | null,
-    stock: number,
-    buy_price: number,
-    sell_price: number,
-}>({
+const forms = useForm<Omit<Item, "created_at" | "updated_at">>({
     name: null,
     category_id: "",
     image: null,

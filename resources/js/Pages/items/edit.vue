@@ -77,30 +77,11 @@
 import { Link, router, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
-    categories: {
-        id: number,
-        code: string,
-        name: string,
-    }[],
-    item: {
-        id: number,
-        name: string | null,
-        category_id: number | string,
-        image: File | null,
-        stock: number,
-        buy_price: number,
-        sell_price: number,
-    }
+    categories: Category[],
+    item: Item[]
 }>();
 
-const forms = useForm<{
-    name: string | null,
-    category_id: number | string,
-    image: File | null,
-    stock: number,
-    buy_price: number,
-    sell_price: number,
-}>({
+const forms = useForm<Omit<Item, "created_at" | "updated_at">>({
     name: props.item.name,
     category_id: props.item.category_id,
     image: null,

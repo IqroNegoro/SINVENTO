@@ -27,8 +27,11 @@
 <script setup lang="ts">
 import { useForm } from '@inertiajs/vue3';
 
-const forms = useForm({
-    "username": "",
-    "password": ""
+const forms = useForm<{
+    username: string,
+    password: string
+}>({
+    username: "",
+    password: ""
 });
 </script>

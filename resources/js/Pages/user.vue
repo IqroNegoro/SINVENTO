@@ -37,7 +37,6 @@ const props = defineProps<{
 }>();
 
 const forms = useForm<{
-    id: number,
     username: string,
     password: string,
     name: string

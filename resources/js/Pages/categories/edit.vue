@@ -33,11 +33,7 @@
 import { Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
-    category: {
-        id: string,
-        code: string,
-        name: string
-    }
+    category: Category
 }>()
 
 const forms = useForm({

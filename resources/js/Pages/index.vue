@@ -66,36 +66,6 @@
 <script setup lang="ts">
 import VueApexChart from 'vue3-apexcharts';
 
-interface Category {
-    id: number,
-    code: string,
-    name: string,
-    createdAt: Date,
-    updatedAt: Date,
-}
-
-interface Item {
-    id: number,
-    category_id: number,
-    category: Category,
-    user_id: number,
-    name: string,
-    image: string,
-    stock: number,
-    sell_price: number,
-    buy_price: number
-    createdAt: Date,
-    updatedAt: Date,
-}
-
-interface DetailItem {
-    id: number,
-    item: Item,
-    price: number,
-    total: number,
-    qty: number
-}
-
 const props = defineProps<{
     total_revenue: number,
     total_items: number,

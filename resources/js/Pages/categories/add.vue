@@ -33,7 +33,10 @@
 <script setup lang="ts">
 import { Link, useForm } from '@inertiajs/vue3';
 
-const forms = useForm({
+const forms = useForm<{
+    code: string,
+    name: string
+}>({
     code: "",
     name: ""
 });

@@ -143,13 +143,6 @@ import { Ref, ref } from 'vue';
 import '@vuepic/vue-datepicker/dist/main.css'
 import VueDatePicker, { DatePickerInstance } from '@vuepic/vue-datepicker';
 
-interface Sale {
-    id: number,
-    total: number,
-    created_at: Date,
-    updated_at: Date,
-}
-
 const menuExportPDF : Ref<boolean> = ref(false);
 const menuExportExcel : Ref<boolean> = ref(false);
 const dates : Ref<Array<[Date, Date]>> = ref([]);
@@ -164,7 +157,7 @@ const props = defineProps<{
         to: number,
         total: number,
         data: Sale[]
-        links: any,
+        links: Link[],
     }
 }>();
 

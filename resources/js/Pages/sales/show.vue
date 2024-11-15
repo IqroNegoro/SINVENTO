@@ -41,44 +41,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-interface Category {
-    id: number,
-    code: string,
-    name: string,
-    createdAt: Date,
-    updatedAt: Date,
-}
-
-interface Item {
-    id: number,
-    category_id: number,
-    category: Category,
-    user_id: number,
-    name: string,
-    image: string,
-    stock: number,
-    sell_price: number,
-    buy_price: number
-    createdAt: Date,
-    updatedAt: Date,
-}
-
-interface DetailItem {
-    id: number,
-    item: Item,
-    price: number,
-    total: number,
-    qty: number
-}
-
-interface Sale {
-    id: number,
-    detail_sale: DetailItem[]
-    total: number,
-}
-
 const props = defineProps<{
-    sale: Sale
+    sale: {
+        detail_sale: DetailItem[]
+    } & Sale
 }>();
 
 const total = computed(() => props.sale.detail_sale.reduce((prev, next) => prev += next.qty * next.price ,0))

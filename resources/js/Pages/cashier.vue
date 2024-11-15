@@ -79,20 +79,6 @@
 import { useForm } from '@inertiajs/vue3';
 import { computed, InputHTMLAttributes } from 'vue';
 
-interface Item {
-    id: number,
-    category: {
-        id: number,
-        code: string,
-        name: string,
-    },
-    name: string,
-    image: string,
-    stock: number,
-    sell_price: number,
-    buy_price: number
-}
-
 const props = defineProps<{
     items: Item[]
 }>();
