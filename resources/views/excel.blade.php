@@ -1,21 +1,21 @@
 <table>
     <thead>
         <tr>
-            <td colspan="7" align="center">Warung Sembako Ibu Elis</td>
+            <td style="font-weight: 600;" colspan="7" align="center">Warung Sembako Ibu Elis</td>
         </tr>
         <tr>
-            <td colspan="7" align="center">Laporan Penjualan</td>
+            <td style="font-weight: 600;" colspan="7" align="center">Laporan Penjualan</td>
         </tr>
         <tr>
-            <td colspan="7" align="center">Periode {{ $dates[0] }} @if($dates[0] != $dates[1]) - {{ $dates[1] }} @endif {{ $dates[2] }}</td>
+            <td style="font-weight: 600;" colspan="7" align="center">Periode {{ $dates[0] }} @if($dates[0] != $dates[1]) - {{ $dates[1] }} @endif {{ $dates[2] }}</td>
         </tr>
         <tr></tr>
         <tr>
             <td></td>
             <td></td>
-            <td style="border: 1px solid black; background-color: #CFE3F4; font-weight: 600;" valign="center" align="center">No</td>
-            <td style="border: 1px solid black; background-color: #CFE3F4; font-weight: 600;" valign="center" align="center">Tanggal</td>
-            <td style="border: 1px solid black; background-color: #CFE3F4; font-weight: 600;" valign="center" align="center">Total</td>
+            <td style="font-weight: 600; border: 1px solid black; background-color: #CFE3F4; font-weight: 600;" valign="center" align="center">No</td>
+            <td style="font-weight: 600; border: 1px solid black; background-color: #CFE3F4; font-weight: 600;" valign="center" align="center">Tanggal</td>
+            <td style="font-weight: 600; border: 1px solid black; background-color: #CFE3F4; font-weight: 600;" valign="center" align="center">Total</td>
         </tr>
     </thead>
     <tbody>
@@ -37,10 +37,10 @@
         <tr>
             <td></td>
             <td></td>
-            <td style="border: 1px solid black;" align="right" valign="center" colspan="2">
+            <td style="border: 1px solid black; font-weight: 600;" align="center" valign="center" colspan="2">
                 Total
             </td>
-            <td style="border: 1px solid black;">
+            <td style="border: 1px solid black; font-weight: 600;">
                 {{ $total }}
             </td>
         </tr>

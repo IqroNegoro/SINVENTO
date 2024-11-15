@@ -1,6 +1,5 @@
 <?php
 
-use App\Exports\SalesExport;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
@@ -9,12 +8,6 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Maatwebsite\Excel\Facades\Excel;
-
-Route::get('/', function () {
-    return Inertia::render("index");
-});
 
 Route::middleware("guest")->group(function() {
     Route::get("/login", [AuthController::class, "index"])->name("login");

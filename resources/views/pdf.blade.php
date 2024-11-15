@@ -21,7 +21,7 @@
                 <td>
                     {{ $sale->created_at }}
                 </td>
-                <td>
+                <td style="text-align: right;">
                     @currency($sale->total)
                 </td>
             </tr>
@@ -29,7 +29,7 @@
             <tfoot>
                 <tr>
                     <th colspan="2">Total</th>
-                    <th>@currency($total)</th>
+                    <th style="text-align: right;">@currency($total)</th>
                 </tr>
             </tfoot>
         </tbody>

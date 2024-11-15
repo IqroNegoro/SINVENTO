@@ -18,7 +18,7 @@
                 </select>
             </div>
             <div class="flex flex-row justify-center items-center border">
-                <input type="text" class="bg-transparent border-0" placeholder="Search..." v-model="search">
+                <input @keydown.enter="router.get('', { search })" type="text" class="bg-transparent border-0" placeholder="Search..." v-model="search">
                 <button class="h-full flex justify-center items-center p-3 bg-primary"
                     @click.prevent="router.get('', { search })">
                     <i class="bx bx-search"></i>
