@@ -1,12 +1,12 @@
 <template>
-    <div class="flex flex-col p-4 gap-4 max-h-dvh overflow-y-auto">
+    <div class="flex flex-col gap-4 max-h-dvh">
        <div class="grid grid-cols-3 grid-rows-1 gap-4">
             <div class="bg-white rounded-sm flex flex-col justify-between p-4 gap-8 text-xl font-medium">
                 <div class="flex gap-2 items-center">
                     <button class="bg-primary px-2 py-1 rounded-sm flex justify-center items-center">
                         <i class="bx bx-dollar text-3xl"></i>
                     </button>
-                    <p>Total Revenue Today</p>
+                    <p class="whitespace-nowrap">Total Revenue Today</p>
                 </div>
                 <p>{{ formatRp(props.total_revenue) }}</p>
             </div>
@@ -29,8 +29,11 @@
                 <p> {{ props.total_orders }} Orders</p>
             </div>
         </div>
-        <h1>Revenue Chart This Month</h1>
         <div id="chart">
+            <div class="flex justify-between items-center">
+                <h1>Revenue Chart This Month</h1>
+                <VueDatePicker v-model="date" month-picker auto-apply placeholder="Select Month" class="w-max" @update-month-year="handleChangeDate" />
+            </div>
             <VueApexChart type="area" height="350" :options="chartOptions" :series="series" />
         </div>
         <div class="bg-white p-2 rounded-sm flex flex-col gap-2">
@@ -65,9 +68,19 @@
 </template>
 <script setup lang="ts">
 import VueApexChart from 'vue3-apexcharts';
+import '@vuepic/vue-datepicker/dist/main.css'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import { Ref, ref } from 'vue';
+import { router } from "@inertiajs/vue3";
+
+const date : Ref<{
+    month: number | string,
+    year: number | string
+    // @ts-ignore
+}> = ref({month: (new URLSearchParams(window.location.search).get("month") - 1) ?? new Date().getMonth(), year: new URLSearchParams(window.location.href).get("year") ?? new Date().getFullYear()});
 
 const props = defineProps<{
-    total_revenue: number,
+    total_revenue: number | string,
     total_items: number,
     total_orders: number,
     recent_orders: DetailItem[],
@@ -114,6 +127,9 @@ const chartOptions = {
     },
     xaxis: {
         type: 'datetime',
+        title: {
+            text: "Months"
+        }
     },
     tooltip: {
         shared: false,
@@ -124,6 +140,8 @@ const chartOptions = {
         }
     }
 }
+
+const handleChangeDate = ({instance, month, year}) => router.get('', {month: month + 1, year});
           
 const formatRp = (num : number) => new Intl.NumberFormat("id-ID", {
     currency: "IDR",

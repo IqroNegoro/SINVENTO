@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 flex flex-col gap-4 h-dvh overflow-y-auto">
+    <div class="p-4 flex flex-col gap-4">
         <div class="flex justify-between items-center">
             <h1 class="font-semibold text-3xl">Items</h1>
             <Link :href="route('items.create')" class="px-2 py-1 flex justify-center items-center bg-primary rounded-md text-white">

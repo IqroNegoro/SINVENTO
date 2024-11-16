@@ -61,7 +61,7 @@
         @apply flex justify-start font-medium text-xl items-center pl-5 p-4 gap-8 rounded-sm duration-150 transition-colors hover:link-active;
     }
 
-    nav.active p, nav.active h1 {
+    nav p, nav h1 {
         @apply transition-opacity duration-150;
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 flex flex-col gap-4 h-dvh overflow-hidden">
+    <div class="flex flex-col gap-4 h-full overflow-hidden">
         <h1 class="font-semibold text-3xl">Cashier</h1>
         <div class="flex gap-2 w-full h-full overflow-y-auto overflow-hidden">
             <div class="grid grid-flow-row grid-cols-4 p-4 gap-4 items-start justify-start bg-white overflow-y-auto w-full h-full">

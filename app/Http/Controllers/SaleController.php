@@ -86,12 +86,6 @@ class SaleController extends Controller
 
         $sale = Sale::whereBetween("created_at", [request("startDate"), request("endDate")])->get(["total", "created_at"]);
 
-        // return view("report",[
-        //     "sales" => $sale,
-        //     "total" => $sale->sum("total"),
-        //     "dates" => [Carbon::createFromDate(request("date")[0])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate(request("date")[1])->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate(request("date")[1])->year]
-        // ]);
-
         $pdf = PDF::loadView('pdf', [
             "sales" => $sale,
             "total" => $sale->sum("total"),

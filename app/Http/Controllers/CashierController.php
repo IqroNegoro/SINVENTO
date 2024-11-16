@@ -29,8 +29,9 @@ class CashierController extends Controller
                 "integer",
                 function (string $attribute, mixed $value, Closure $fail) use ($request) {
                     $index = explode(".", $attribute)[1];
-                    if (Item::find($request->input("items.$index.id"))->stock < $value) {
-                        $fail("Quantity exceed stock of product!");
+                    $item = Item::find($request->input("items.$index.id"));
+                    if ($item->stock < $value) {
+                        $fail("Quantity exceed stock of $item->name product!");
                     }
                 },
             ],
