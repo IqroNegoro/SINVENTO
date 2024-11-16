@@ -6,6 +6,7 @@ use App\Models\DetailSale;
 use App\Models\Item;
 use App\Models\Sale;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -16,9 +17,7 @@ class DashboardController extends Controller
             "total_items" => Item::count(),
             "total_orders" => Sale::count(),
             "recent_orders" => DetailSale::limit(5)->get(),
-            "charts" => Sale::whereMonth("created_at", Carbon::now()->month)->get(["created_at", "total"])->map(function ($value) {
-                return [$value->created_at->toDateTimeString(), $value->total];
-            })
+            "charts" => Sale::selectRaw("DATE(created_at) as date, SUM(total) as total")->whereMonth("created_at", Carbon::now()->month)->groupBy("date")->get()->map(fn(mixed $value) => [$value->date, $value->total])
         ]);
     }
 }

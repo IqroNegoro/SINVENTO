@@ -18,7 +18,10 @@ class Category extends Model
 
     public function scopeSearch(Builder $query) {
         $keyword = request("search");
-        return $query->where("code", "LIKE", "%$keyword%")->orWhere("name", "LIKE", "%$keyword%");
+        return $query->whereAny([
+            "code",
+            "name"
+        ], "LIKE", "%$keyword%");
     }
 
     static public function boot() {
