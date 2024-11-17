@@ -9,8 +9,6 @@ use App\Http\Requests\UpdateSaleRequest;
 use Inertia\Inertia;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SaleController extends Controller
@@ -80,11 +78,11 @@ class SaleController extends Controller
 
     public function pdf() {
         request()->validate([
-            "startDate" => "required",
-            "endDate" => "required",
+            "startDate" => "required|date",
+            "endDate" => "required|date",
         ]);
-
-        $sale = Sale::whereBetween("created_at", [request("startDate"), request("endDate")])->get(["total", "created_at"]);
+        
+        $sale = Sale::whereBetween("created_at", [request("startDate"), request("endDate")])->orderBy("created_at", "ASC")->get(["total", "created_at"]);
 
         $pdf = PDF::loadView('pdf', [
             "sales" => $sale,
@@ -97,8 +95,8 @@ class SaleController extends Controller
 
     public function excel() {
         request()->validate([
-            "startDate" => "required",
-            "endDate" => "required",
+            "startDate" => "required|date",
+            "endDate" => "required|date",
         ]);
 
         return Excel::download(new SalesExport(request("startDate"), request("endDate")), "sales.xlsx");

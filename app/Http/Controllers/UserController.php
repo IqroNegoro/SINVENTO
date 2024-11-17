@@ -20,7 +20,7 @@ class UserController extends Controller
             "username" => "required|string|max:255",
             "password" => "required|string|max:255",
         ]);
-        if (auth()->user()->update($data)) {
+        if (auth()->user->update($data)) {
             return back()->with("success", "Success update credentials");
         }
 

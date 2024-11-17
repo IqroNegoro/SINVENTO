@@ -33,10 +33,7 @@
 <script setup lang="ts">
 import { Link, useForm } from '@inertiajs/vue3';
 
-const forms = useForm<{
-    code: string,
-    name: string
-}>({
+const forms = useForm<Pick<Category, "code" | "name">>({
     code: "",
     name: ""
 });

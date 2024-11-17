@@ -77,7 +77,7 @@ const date : Ref<{
     month: number | string,
     year: number | string
     // @ts-ignore
-}> = ref({month: (new URLSearchParams(window.location.search).get("month") - 1) ?? new Date().getMonth(), year: new URLSearchParams(window.location.href).get("year") ?? new Date().getFullYear()});
+}> = ref({month: new URLSearchParams(window.location.search).get("month") ? new URLSearchParams(window.location.search).get("month") - 1 : new Date().getMonth(), year: new URLSearchParams(window.location.href).get("year") ?? new Date().getFullYear()});
 
 const props = defineProps<{
     total_revenue: number | string,

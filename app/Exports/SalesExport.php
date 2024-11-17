@@ -27,7 +27,7 @@ class SalesExport implements FromView, WithStrictNullComparison
 
     public function view() : View
     {
-        $sale = Sale::whereBetween("created_at", [$this->startDate, $this->endDate])->get(["total", "created_at"]);
+        $sale = Sale::whereBetween("created_at", [$this->startDate, $this->endDate])->orderBy("created_at", "ASC")->get(["total", "created_at"]);
         
         return view("excel", [
             "sales" => $sale,

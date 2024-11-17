@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4 flex flex-col gap-4 h-dvh overflow-y-auto">
+    <div class="flex flex-col gap-4">
         <div class="flex justify-between items-center">
             <h1 class="font-semibold text-3xl">Edit Item</h1>
         </div>
@@ -78,12 +78,13 @@ import { Link, router, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
     categories: Category[],
-    item: Item[]
+    item: Item
 }>();
 
-const forms = useForm<Omit<Item, "created_at" | "updated_at">>({
-    name: props.item.name,
+const forms = useForm<Omit<Item, "category" | "created_at" | "updated_at">>({
+    id: props.item.id,
     category_id: props.item.category_id,
+    name: props.item.name,
     image: null,
     stock: props.item.stock,
     buy_price: props.item.buy_price,

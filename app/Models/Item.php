@@ -18,6 +18,10 @@ class Item extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function voucher() {
+        return $this->belongsTo(Voucher::class);
+    }
+
     public function scopeSort(Builder $query) {
         return $query->when(request("sort") == "category", function(Builder $query, bool $value) {
             return $query->orderBy(Category::select("name")->whereColumn("categories.id", "items.id"));
@@ -33,13 +37,13 @@ class Item extends Model
         });
     }
 
-    static public function boot() {
-        parent::boot();
+    // static public function boot() {
+    //     parent::boot();
 
-        static::creating(function (Item $item) {
-            if (!$item->user_id) {
-                $item->user_id = Auth::id();
-            }
-        });
-    }
+    //     static::creating(function (Item $item) {
+    //         if (!$item->user_id) {
+    //             $item->user_id = Auth::id();
+    //         }
+    //     });
+    // }
 }

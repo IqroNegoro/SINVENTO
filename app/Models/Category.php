@@ -24,13 +24,13 @@ class Category extends Model
         ], "LIKE", "%$keyword%");
     }
 
-    static public function boot() {
-        parent::boot();
+    // static public function boot() {
+    //     parent::boot();
 
-        static::creating(function (Category $category) {
-            if (!$category->user_id) {
-                $category->user_id = Auth::id();
-            }
-        });
-    }
+    //     static::creating(function (Category $category) {
+    //         if (!$category->user_id) {
+    //             $category->user_id = Auth::id();
+    //         }
+    //     });
+    // }
 }

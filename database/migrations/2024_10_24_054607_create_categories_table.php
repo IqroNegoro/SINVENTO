@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("code", 100);
             $table->string("name", 255);
-            $table->foreignId("user_id")->constrained("users")->references("id")->on("users");
+            // $table->foreignId("user_id")->constrained("users")->references("id")->on("users");
             $table->timestamps();
         });
     }

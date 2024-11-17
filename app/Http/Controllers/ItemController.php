@@ -37,6 +37,7 @@ class ItemController extends Controller
     public function store(StoreItemRequest $request)
     {
         $data = $request->validated();
+
         if ($request->hasFile("image")) {
             $file = $request->file("image")->store("images", "public");
 

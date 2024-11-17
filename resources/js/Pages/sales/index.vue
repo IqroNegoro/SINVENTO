@@ -93,20 +93,22 @@
                 <div class="w-full flex flex-col gap-2">
                     <div>
                         <p class="text-lg">Date</p>
-                        <VueDatePicker :class="{'border border-red-500': $page.props.errors.date}" v-model="dates" ref="datePicker" placeholder="Select Dates" range position="center" :enable-time-picker="false" auto-apply />
-                        <!-- <p class="text-red-500" v-if="form.errors.date">{{ form.errors.date }}</p> -->
+                        <VueDatePicker :class="{'border border-red-500': $page.props.errors?.startDate || $page.props.errors?.endDate}" v-model="dates" placeholder="Select Dates" range position="center" :enable-time-picker="false" auto-apply />
+                        <p class="text-red-500 text-sm" v-if="$page.props.errors?.startDate || $page.props.errors?.endDate"> Please select the dates </p>
                     </div>
-                    <Link :href="route('sales.report.pdf', {
-                        _query: {
+                    <button :disabled="!(dates?.[0] && dates?.[1]) || state" @click="router.get(route('sales.report.pdf'), {
                             startDate: dates[0],
-                            endDate: dates[1],
-                        }
+                            endDate: dates[1]
+                    }, {
+                        preserveState: true,
+                        onStart: () => state = true,
+                        onFinish: () => state = false
                     })" class="bg-primary py-2 px-1 flex justify-center items-center">
-                        <!-- <i v-if="form.processing" class="bx bx-loader-alt bx-spin"></i> -->
-                        <p>
+                        <i v-if="state" class="bx bx-loader-alt bx-spin"></i>
+                        <p v-else>
                             Generate Report PDF
                         </p>
-                    </Link>
+                    </button>
                 </div>
             </div>
         </div>
@@ -116,38 +118,36 @@
                 <div class="w-full flex flex-col gap-2">
                     <div>
                         <p class="text-lg">Date</p>
-                        <VueDatePicker :class="{'border border-red-500': $page.props.errors.dates}" v-model="dates" ref="datePicker" placeholder="Select Dates" range position="center" :enable-time-picker="false" auto-apply />
-                        <p class="text-red-500" v-if="$page.props.errors.date">{{ $page.props.errors.dates }}</p>
+                        <VueDatePicker :class="{'border border-red-500': $page.props.errors?.startDate || $page.props.errors?.endDate}" v-model="dates" placeholder="Select Dates" range position="center" :enable-time-picker="false" auto-apply />
+                        <p class="text-red-500 text-sm" v-if="$page.props.errors?.startDate || $page.props.errors?.endDate"> Please select the dates </p>
                     </div>
-                    <a :href="route('sales.report.excel', {
+                    <a :disabled="!(dates?.[0] && dates?.[1]) || state" :href="route('sales.report.excel', {
                         _query: {
                             startDate: dates[0],
-                            endDate: dates[1],
-                        }
+                            endDate: dates[1]
+                        },
                     })" class="bg-primary py-2 px-1 flex justify-center items-center">
-                        <!-- <i v-if="form.processing" class="bx bx-loader-alt bx-spin"></i> -->
-                        <!-- <p v-else> -->
-                        <p>
-                            Generate Report Excel
-                        </p>
-                    </a>
+                    <i v-if="state" class="bx bx-loader-alt bx-spin"></i>
+                    <p v-else>
+                        Generate Report Excel
+                    </p>
+                </a>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { Link, router } from '@inertiajs/vue3';
+import { Link, router, usePage } from '@inertiajs/vue3';
 import moment from "moment";
-import { Ref, ref } from 'vue';
+import { Ref, ref, watch } from 'vue';
 import '@vuepic/vue-datepicker/dist/main.css'
 import VueDatePicker, { DatePickerInstance } from '@vuepic/vue-datepicker';
 
 const menuExportPDF : Ref<boolean> = ref(false);
 const menuExportExcel : Ref<boolean> = ref(false);
+const state : Ref<boolean> = ref(false);
 const dates : Ref<Array<[Date, Date]>> = ref([]);
-
-const datePicker : Ref<DatePickerInstance | undefined> = ref();
 
 const sort: Ref<null | string | "date" | "total"> = ref(new URLSearchParams(window.location.search).get("sort") || "");
 
@@ -160,6 +160,8 @@ const props = defineProps<{
         links: Link[],
     }
 }>();
+
+watch(dates, () => usePage().props.errors = {})
 
 const formatRp = (num : number) => new Intl.NumberFormat("id-ID", {
     currency: "IDR",

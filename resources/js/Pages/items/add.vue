@@ -41,10 +41,10 @@
                     <p class="pl-2">Rp.</p>
                     <input type="number" class="border-none" placeholder="0" name="buy_price" v-model="forms.buy_price" :disabled="forms.processing">
                 </div>
+                <p v-if="forms.errors.buy_price" class="text-red-500">
+                    {{ forms.errors.buy_price }}
+                </p>
             </div>
-            <p v-if="forms.errors.buy_price" class="text-red-500">
-                {{ forms.errors.buy_price }}
-            </p>
             <div>
                 <p>Sell Price</p>
                 <div :class="{'border border-red-500': forms.errors.sell_price}" class="flex items-center border rounded-sm">
@@ -74,7 +74,7 @@ const props = defineProps<{
     categories: Category[]
 }>();
 
-const forms = useForm<Omit<Item, "created_at" | "updated_at">>({
+const forms = useForm<Omit<Item, "id" | "created_at" | "updated_at">>({
     name: null,
     category_id: "",
     image: null,

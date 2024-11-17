@@ -8,15 +8,18 @@
         })" class="bg-white p-4 rounded-sm flex flex-col gap-4" method="POST">
             <div>
                 <p>Name</p>
-                <input type="text" v-model="forms.name">
+                <input type="text" :class="{'border border-red-500': forms.errors.name}" v-model="forms.name">
+                <p class="text-red-500"> {{ forms.errors.name }} </p>
             </div>
             <div>
                 <p>Username</p>
-                <input type="text" v-model="forms.username">
+                <input type="text" :class="{'border border-red-500': forms.errors.username}" v-model="forms.username">
+                <p class="text-red-500"> {{ forms.errors.username }} </p>
             </div>
             <div>
                 <p>Password</p>
-                <input type="password" v-model="forms.password">
+                <input type="password" :class="{'border border-red-500': forms.errors.password}" v-model="forms.password">
+                <p class="text-red-500"> {{ forms.errors.password }} </p>
             </div>
             <button class="bg-primary py-2 text-sm px-4 self-end" type="submit">
                 Update

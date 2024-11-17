@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained("users")->references("id")->on("users");
+            // $table->foreignId("user_id")->constrained("users")->references("id")->on("users");
+            $table->foreignId("voucher_id")->nullable()->constrained("vouchers")->references("id")->on("vouchers");
+            $table->integer("subtotal");
             $table->integer("total");
             $table->timestamps();
         });
