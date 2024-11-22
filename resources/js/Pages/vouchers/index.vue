@@ -16,7 +16,8 @@
                 </select>
             </div>
             <div class="flex flex-row justify-center items-center border">
-                <input @keydown.enter="router.get('', { search })" type="text" class="bg-transparent border-0" placeholder="Search..." v-model="search">
+                <input @keydown.enter="router.get('', { search })" type="text" class="bg-transparent border-0"
+                    placeholder="Search..." v-model="search">
                 <button class="h-full flex justify-center items-center p-3 bg-primary"
                     @click.prevent="router.get('', { search })">
                     <i class="bx bx-search"></i>
@@ -24,7 +25,7 @@
             </div>
         </div>
         <div class="bg-white">
-            <table class="w-full table-auto" cellpadding="16">
+            <table class="w-full table-auto text-sm" cellpadding="16">
                 <thead class="bg-primary text-white rounded-md">
                     <tr>
                         <th class="font-light rounded-tl-md">No</th>
@@ -33,8 +34,8 @@
                         <th class="font-light">Type</th>
                         <th class="font-light">Value</th>
                         <th class="font-light">Valid From</th>
-                        <th class="font-light">Valid To</th>
                         <th class="font-light">Stock</th>
+                        <th class="font-light">Used</th>
                         <th class="font-light">Active</th>
                         <th class="font-light rounded-tr-md">Action</th>
                     </tr>
@@ -63,11 +64,12 @@
                             </div>
                         </td>
                         <td class="first-letter:uppercase"> {{ voucher.type }} </td>
-                        <td> {{ voucher.value_type == 'fixed' ? `${voucher.value}%` : formatRp(voucher.value) }} </td>
-                        <td> {{ voucher.valid_from }} </td>
-                        <td> {{ voucher.valid_to }} </td>
-                        <td> {{ voucher.stock }} </td>
-                        <td :class="{'text-green-500': voucher.active}"> {{ voucher.active ? 'Active' : 'Not Active' }} </td>
+                        <td> {{ voucher.type == 'percentage' ? `${voucher.value}%` : formatRp(voucher.value) }} </td>
+                        <td> {{ voucher.valid_from }} {{ voucher.valid_to ? `- ${voucher.valid_to}` : "" }} </td>
+                        <td> {{ voucher.stock ? voucher.stock : "-" }} </td>
+                        <td> {{ voucher.used }} </td>
+                        <td :class="{ 'text-green-500': voucher.active }"> {{ voucher.active ? 'Active' : 'Not Active' }}
+                        </td>
                         <td class="flex justify-center items-center gap-2">
                             <Link :href="route('vouchers.edit', voucher.id)">
                             <i class="bx bx-edit"></i>
@@ -80,8 +82,7 @@
                 </tbody>
             </table>
         </div>
-        <div
-            class="flex justify-between px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase">
+        <div class="flex justify-between px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase">
             <span class="flex items-center col-span-3">
                 Showing {{ vouchers.from }}-{{ vouchers.to }} of {{ vouchers.total }}
             </span>
@@ -94,7 +95,10 @@
                             <i class="bx bx-chevron-left"></i>
                         </button> -->
                         <li v-for="link in vouchers.links" :key="link.label">
-                            <Link v-if="link.url != null" class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" :class="{'bg-white text-black': link.active}" v-html="link.label" :href="link.url"></Link>
+                            <Link v-if="link.url != null"
+                                class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+                                :class="{ 'bg-white text-black': link.active }" v-html="link.label" :href="link.url">
+                            </Link>
                         </li>
                         <!-- <li>
                             <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
@@ -125,8 +129,8 @@ const props = defineProps<{
 const sort: Ref<null | string | "code" | "name"> = ref(new URLSearchParams(window.location.search).get("sort") || "");
 const search: Ref<null | string> = ref(new URLSearchParams(window.location.search).get("search"));
 
-const formatRp = (num : number) => new Intl.NumberFormat("id-ID", {
-    currency: "IDR",
+const formatRp = (num: number) => new Intl.NumberFormat("id-ID", {
     style: "currency",
+    currency: "IDR",
 }).format(num);
 </script>

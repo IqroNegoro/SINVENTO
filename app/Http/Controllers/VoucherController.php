@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Voucher;
 use App\Http\Requests\StoreVoucherRequest;
 use App\Http\Requests\UpdateVoucherRequest;
-use Illuminate\Http\Request;
+use Exception;
 use Inertia\Inertia;
 
 class VoucherController extends Controller
@@ -75,10 +75,14 @@ class VoucherController extends Controller
      */
     public function destroy(Voucher $voucher)
     {
-        if ($voucher->delete()) {
-            return back()->with("success", "Voucher $voucher->name removed");
+        try {
+            if ($voucher->delete()) {
+                return back()->with("success", "Voucher $voucher->name removed");
+            }
+    
+            return back()->with("error", "Cannot removed $voucher->name voucher");
+        } catch (Exception $e) {
+            return back()->with("error", "Cannot removed $voucher->name voucher");
         }
-
-        return back()->with("error", "Cannot removed $voucher->name voucher");
     }
 }

@@ -19,12 +19,12 @@ declare global {
         code: string,
         name: string,
         description: string,
-        value_type: "fixed" | "percentage",
-        type: "item" | "cart" | null,
+        type: "fixed" | "percentage",
         value: number,
-        valid_from: Date,
-        valid_to: Date,
+        valid_from: Date | number,
+        valid_to: Date | number | null,
         stock: number | null,
+        used: number,
         active: boolean,
         created_at: Date,
         updated_at: Date
@@ -45,6 +45,8 @@ declare global {
 
     interface Sale {
         id: number,
+        voucher: Voucher,
+        subtotal: number,
         total: number,
         created_at: Date,
         updated_at: Date,

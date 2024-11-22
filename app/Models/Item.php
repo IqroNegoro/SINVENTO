@@ -18,10 +18,6 @@ class Item extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function voucher() {
-        return $this->belongsTo(Voucher::class);
-    }
-
     public function scopeSort(Builder $query) {
         return $query->when(request("sort") == "category", function(Builder $query, bool $value) {
             return $query->orderBy(Category::select("name")->whereColumn("categories.id", "items.id"));

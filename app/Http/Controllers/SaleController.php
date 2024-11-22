@@ -45,7 +45,7 @@ class SaleController extends Controller
     public function show(Sale $sale)
     {
         return Inertia::render("sales/show", [
-            "sale" => $sale
+            "sale" => $sale->load("voucher:id,value,type")
         ]);
     }
 
@@ -76,12 +76,13 @@ class SaleController extends Controller
         return back()->with("error", "Error delete record, try again");
     }
 
-    public function pdf() {
+    public function pdf()
+    {
         request()->validate([
             "startDate" => "required|date",
             "endDate" => "required|date",
         ]);
-        
+
         $sale = Sale::whereBetween("created_at", [request("startDate"), request("endDate")])->orderBy("created_at", "ASC")->get(["total", "created_at"]);
 
         $pdf = PDF::loadView('pdf', [
@@ -93,7 +94,8 @@ class SaleController extends Controller
         return $pdf->stream('report.pdf');
     }
 
-    public function excel() {
+    public function excel()
+    {
         request()->validate([
             "startDate" => "required|date",
             "endDate" => "required|date",

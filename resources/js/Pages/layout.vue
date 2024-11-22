@@ -45,12 +45,14 @@
         <div class="bg-[#F6F6F6] w-full p-4 h-dvh overflow-y-auto">
             <slot  />
         </div>
-        <div v-if="$page.props.error || $page.props.success" class="fixed right-4 top-4 shadow-sm bg-primary py-2 px-4 rounded-sm flex items-center gap-4 cursor-pointer" @click="() => {$page.props.success = null; $page.props.error = null}">
-            <p> {{ $page.props.error || $page.props.success }} </p>
-            <button>
-                <i class="bx bx-x text-2xl"></i>
-            </button>
-        </div>
+        <Transition>
+            <div v-if="$page.props.error || $page.props.success" class="fixed right-4 bottom-4 shadow-sm bg-primary py-2 px-4 rounded-sm flex items-center gap-4 cursor-pointer max-w-96 text-sm" @click="() => {$page.props.success = null; $page.props.error = null}">
+                <p> {{ $page.props.error || $page.props.success }} </p>
+                <button>
+                    <i class="bx bx-x text-2xl"></i>
+                </button>
+            </div>
+        </Transition>
     </div>
 </template>
 <script setup lang="ts">
@@ -60,3 +62,16 @@ import { Ref, ref } from 'vue';
 const lock : Ref<boolean> = ref(false);
 
 </script>
+<style scoped>
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.25s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: translateY(1rem);
+}
+</style>

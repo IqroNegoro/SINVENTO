@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->foreignId("category_id")->nullable()->constrained("categories")->references("id")->on("categories");
-            $table->foreignId("voucher_id")->nullable()->constrained("vouchers")->references("id")->on("vouchers");
             // $table->foreignId("user_id")->constrained("users")->references("id")->on("users");
             $table->string("name", 255);
             $table->string("image", 255)->nullable();

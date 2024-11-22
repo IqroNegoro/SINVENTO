@@ -19,16 +19,16 @@ class StoreVoucherRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            "valid_from" => Carbon::createFromTimeString($this->valid_from)->toDateString(),
-            "valid_to" => Carbon::createFromTimeString($this->valid_to)->toDateString(),
+            "valid_from" => $this->valid_from ? Carbon::createFromTimeString($this->valid_from)->toDateString() : $this->valid_from,
+            "valid_to" => $this->valid_to ? Carbon::createFromTimeString($this->valid_to)->toDateString() : $this->valid_to,
         ]);
     }
-    
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-    */
+     */
 
     public function rules(): array
     {
@@ -36,11 +36,10 @@ class StoreVoucherRequest extends FormRequest
             "code" => "required|string|unique:vouchers",
             "name" => "required|string",
             "description" => "required|string",
-            "value_type" => "required|in:fixed,percentage",
-            "type" => "required|in:cart,item",
-            "value" => "required|integer|min:1" . ($this->input("value_type") == "percentage" ? "|max:100" : ""),
-            "valid_from" => "required|date|before:valid_to",
-            "valid_to" => "required|date|after:valid_from",
+            "type" => "required|in:fixed,percentage",
+            "value" => "required|integer|min:1" . ($this->input("type") == "percentage" ? "|max:100" : ""),
+            "valid_from" => "required|date" . ($this->request->get("valid_to") ? "|before_or_equal:valid_to" : ""),
+            "valid_to" => $this->request->get("valid_to") ? "date|after_or_equal:valid_from" : "",
             "stock" => $this->request->get("stock") ? "integer|min:1" : "",
             "active" => "required|boolean"
         ];

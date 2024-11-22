@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string("code", 50);
             $table->string("name", 100);
             $table->string("description")->nullable();
-            $table->enum("value_type", ["fixed", "percentage"])->default("percentage");
-            $table->enum("type", ["item", "cart"])->nullable();
+            $table->enum("type", ["fixed", "percentage"])->default("percentage");
             $table->integer("value")->default(0);
             $table->date("valid_from")->useCurrent();
-            $table->date("valid_to");
+            $table->date("valid_to")->nullable();
             $table->integer("stock")->nullable();
+            $table->integer("used")->default(0);
             $table->boolean("active")->default(false);
             $table->timestamps();
         });

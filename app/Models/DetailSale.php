@@ -24,9 +24,7 @@ class DetailSale extends Model
         parent::boot();
 
         static::created(function (DetailSale $detailSale) {
-            $detailSale->item->update([
-                "stock" => $detailSale->item->stock - $detailSale->qty
-            ]);
+            $detailSale->item->decrement("stock", $detailSale->qty);
         });
     }
 }

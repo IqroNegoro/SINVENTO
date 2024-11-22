@@ -13,7 +13,7 @@ class Sale extends Model
         "id"
     ];
 
-    protected $with = ["detailSale"];
+    protected $with = ["voucher", "detailSale"];
 
     public function detailSale() {
         return $this->hasMany(DetailSale::class);
@@ -30,11 +30,12 @@ class Sale extends Model
     static public function boot() {
         parent::boot();
 
-        // static::creating(function (Sale $sale) {
-        //     if (!$sale->user_id) {
-        //         $sale->user_id = Auth::id();
-        //     }
-        // });
+        static::created(function (Sale $sale) {
+            if ($sale->voucher) {
+                $sale->voucher->decrement("stock");
+                $sale->voucher->increment("used");
+            }
+        });
 
         static::deleting(function (Sale $sale) {
             $sale->detailSale->each(function ($value) {

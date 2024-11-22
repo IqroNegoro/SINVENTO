@@ -19,10 +19,12 @@
                         <td> {{ i + 1 }} </td>
                         <td>
                             <div class="flex flex-row items-center gap-4">
-                                <img :src="`/storage/${item.item.image}`" class="w-24 h-24 aspect-square object-cover rounded-sm" :alt="item.item.name" loading="lazy">
+                                <img :src="`/storage/${item.item.image}`"
+                                    class="w-24 h-24 aspect-square object-cover rounded-sm" :alt="item.item.name"
+                                    loading="lazy">
                                 {{ item.item.name }}
                             </div>
-                         </td>
+                        </td>
                         <td> {{ item.qty }} </td>
                         <td> {{ formatRp(item.price) }} </td>
                         <td> {{ formatRp(item.total) }} </td>
@@ -30,8 +32,27 @@
                 </tbody>
                 <tfoot class="bg-primary">
                     <tr class="text-right">
-                        <th class="font-light" colspan="4">Total</th>
-                        <th class="font-light text-center"> {{ formatRp(total) }} </th>
+                        <th class="font-light" colspan="5">
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-start self-end gap-2">
+                                    <p>Subtotal</p>
+                                    <p>:</p>
+                                    <p> {{ formatRp(sale.subtotal) }} </p>
+                                </div>
+                                <div class="flex justify-start self-end gap-2">
+                                    <p>Voucher</p>
+                                    <p>:</p>
+                                    <p> {{ sale.voucher ? `${sale.voucher.type == 'fixed' ? formatRp(sale.voucher.value)
+                                        : sale.voucher.value + "%"}` : "-" }} </p>
+                                </div>
+                                <div class="flex justify-start self-end gap-2">
+                                    <p>Total</p>
+                                    <p>:</p>
+                                    <p> {{ formatRp(sale.total) }} </p>
+                                </div>
+                            </div>
+                        </th>
+                        <!-- <th class="font-light text-center"> {{ formatRp(total) }} </th> -->
                     </tr>
                 </tfoot>
             </table>
@@ -39,17 +60,13 @@
     </div>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue';
-
 const props = defineProps<{
     sale: {
         detail_sale: DetailItem[]
     } & Sale
 }>();
 
-const total = computed(() => props.sale.detail_sale.reduce((prev, next) => prev += next.qty * next.price ,0))
-
-const formatRp = (num : number) => new Intl.NumberFormat("id-ID", {
+const formatRp = (num: number) => new Intl.NumberFormat("id-ID", {
     currency: "IDR",
     style: "currency",
 }).format(num);
