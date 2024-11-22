@@ -15,7 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, i) in props.sale.detail_sale" :key="item.id" class="text-center">
+                    <tr v-for="(item, i) in sale.detail_sale" :key="item.id" class="text-center">
                         <td> {{ i + 1 }} </td>
                         <td>
                             <div class="flex flex-row items-center gap-4">
@@ -34,6 +34,11 @@
                     <tr class="text-right">
                         <th class="font-light" colspan="5">
                             <div class="flex flex-col gap-1">
+                                <div class="flex justify-start self-end gap-2">
+                                    <p>Customer</p>
+                                    <p>:</p>
+                                    <p> {{ sale.customer?.name ?? "-" }} </p>
+                                </div>
                                 <div class="flex justify-start self-end gap-2">
                                     <p>Subtotal</p>
                                     <p>:</p>

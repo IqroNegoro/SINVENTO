@@ -9,10 +9,12 @@ Take control of your store with an app designed for simplicity and efficiency. W
 - **Monthly Report**: Don't take your time to create a bunch of reports of transactions, just one click and the reports are ready to see.
 - **Complete Inventory Control**: Manage categories, track items, and monitor sales effortlessly—all in one place.
 - **Data at a Glance**: View real-time charts, track daily revenue, and check total items in a simple, intuitive dashboard.
+- **Flexible Discount System**: Offer discounts with ease—apply in purchases.
+- **Optional Member System**: Create customer accounts to manage loyalty or rewards, with no sign-up required. Just create the customer
 
 ### Upcoming Features
-- **Flexible Discount System**: Offer discounts with ease—apply in purchases.
-- **Optional Member System**: Create customer accounts to manage loyalty or rewards, with no sign-up required.
+- Thinking
+
 
 Simplicity doesn’t have to mean limited functionality. Our app gives you the tools you need, without the clutter. It's everything you need to keep your store running smoothly, with the power to scale.
 

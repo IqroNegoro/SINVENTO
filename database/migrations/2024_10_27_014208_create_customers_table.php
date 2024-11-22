@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sales', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string("customer_id")->nullable()->constrained("customers")->references("code")->on("customers");
-            $table->foreignId("voucher_id")->nullable()->constrained("vouchers")->references("id")->on("vouchers");
-            $table->integer("subtotal");
-            $table->integer("total");
+            $table->string("code");
+            $table->string("name");
+            $table->string("phone")->nullable();
+            $table->integer("visit")->default(0);
+            $table->integer("total")->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sales');
+        Schema::dropIfExists('customers');
     }
 };

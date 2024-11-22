@@ -30,7 +30,7 @@ class CashierController extends Controller
 
         $voucher = Voucher::find($request->voucher_id);
 
-        if (!$voucher->active || $voucher->valid_from->greaterThan(Carbon::today()) || $voucher->valid_to->lessThan(Carbon::today()) || (!is_null($voucher->stock) && $voucher->stock == 0)) {
+        if (!$voucher || !$voucher->active || $voucher->valid_from->greaterThan(Carbon::today()) || $voucher->valid_to->lessThan(Carbon::today()) || (!is_null($voucher->stock) && $voucher->stock == 0)) {
             $voucher = null;
         }
 

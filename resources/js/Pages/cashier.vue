@@ -4,7 +4,7 @@
         <div class="flex gap-2 w-full h-full overflow-y-auto overflow-hidden">
             <div
                 class="grid grid-flow-row grid-cols-4 p-4 gap-4 items-start justify-start bg-white overflow-y-auto w-full h-full">
-                <button v-for="item in props.items" :key="item.id" @click="handleAddItem(item)"
+                <button v-for="item in items" :key="item.id" @click="handleAddItem(item)"
                     class="flex flex-col justify-start gap-2">
                     <img :src="`/storage/${item.image}`" :alt="item.name"
                         class="w-32 rounded-sm aspect-square object-cover object-center"
@@ -71,7 +71,10 @@
                     </div>
                     <div>
                         <p>Customer ID</p>
-                        <input type="text" class="border-slate-500 p-1" placeholder="Customer ID">
+                        <input v-model="forms.customer_id" type="text" class="border-slate-500 p-1" placeholder="Customer ID">
+                        <p class="text-red-500" v-if="forms.errors.customer_id">
+                            {{ forms.errors.customer_id }}
+                        </p>
                     </div>
                     <div>
                         <p>Voucher</p>
@@ -114,9 +117,11 @@ const forms = useForm<{
     items: (Item & {
         qty: number,
     })[],
-    voucher_id: null
+    customer_id: null | string
+    voucher_id: null | number
 }>({
     items: [],
+    customer_id: null,
     voucher_id: null
 });
 

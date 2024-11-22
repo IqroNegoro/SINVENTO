@@ -36,8 +36,7 @@ const props = defineProps<{
     category: Category
 }>()
 
-const forms = useForm<Omit<Category, "created_at" | "updated_at">>({
-    id: props.category.id,
+const forms = useForm<Omit<Category, "id" | "created_at" | "updated_at">>({
     code: props.category.code,
     name: props.category.name
 });

@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-4 max-h-dvh">
-       <div class="grid grid-cols-3 grid-rows-1 gap-4">
+        <div class="grid grid-cols-3 grid-rows-1 gap-4">
             <div class="bg-white rounded-sm flex flex-col justify-between p-4 gap-8 text-xl font-medium">
                 <div class="flex gap-2 items-center">
                     <button class="bg-primary px-2 py-1 rounded-sm flex justify-center items-center">
@@ -32,7 +32,8 @@
         <div id="chart">
             <div class="flex justify-between items-center">
                 <h1>Revenue Chart This Month</h1>
-                <VueDatePicker v-model="date" month-picker auto-apply placeholder="Select Month" class="w-max" @update-month-year="handleChangeDate" />
+                <VueDatePicker v-model="date" month-picker auto-apply placeholder="Select Month" class="w-max"
+                    @update-month-year="handleChangeDate" />
             </div>
             <VueApexChart type="area" height="350" :options="chartOptions" :series="series" />
         </div>
@@ -49,14 +50,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, i) in props.recent_orders" :key="item.id" class="text-center">
+                    <tr v-for="(item, i) in recent_orders" :key="item.id" class="text-center">
                         <td> {{ i + 1 }} </td>
                         <td>
                             <div class="flex flex-row items-center gap-4">
-                                <img :src="`/storage/${item.item.image}`" class="w-24 h-24 aspect-square object-cover rounded-sm" :alt="item.item.name" loading="lazy">
+                                <img :src="`/storage/${item.item.image}`"
+                                    class="w-24 h-24 aspect-square object-cover rounded-sm" :alt="item.item.name"
+                                    loading="lazy">
                                 {{ item.item.name }}
                             </div>
-                         </td>
+                        </td>
                         <td> {{ item.qty }} </td>
                         <td> {{ formatRp(item.price) }} </td>
                         <td> {{ formatRp(item.total) }} </td>
@@ -73,11 +76,11 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import { Ref, ref } from 'vue';
 import { router } from "@inertiajs/vue3";
 
-const date : Ref<{
+const date: Ref<{
     month: number | string,
     year: number | string
     // @ts-ignore
-}> = ref({month: new URLSearchParams(window.location.search).get("month") ? new URLSearchParams(window.location.search).get("month") - 1 : new Date().getMonth(), year: new URLSearchParams(window.location.href).get("year") ?? new Date().getFullYear()});
+}> = ref({ month: new URLSearchParams(window.location.search).get("month") ? new URLSearchParams(window.location.search).get("month") - 1 : new Date().getMonth(), year: new URLSearchParams(window.location.href).get("year") ?? new Date().getFullYear() });
 
 const props = defineProps<{
     total_revenue: number | string,
@@ -134,16 +137,16 @@ const chartOptions = {
     tooltip: {
         shared: false,
         y: {
-        formatter: function (val) {
+            formatter: function (val) {
                 return formatRp(val)
             }
         }
     }
 }
 
-const handleChangeDate = ({instance, month, year}) => router.get('', {month: month + 1, year});
-          
-const formatRp = (num : number) => new Intl.NumberFormat("id-ID", {
+const handleChangeDate = ({ instance, month, year }) => router.get('', { month: month + 1, year });
+
+const formatRp = (num: number) => new Intl.NumberFormat("id-ID", {
     currency: "IDR",
     style: "currency",
 }).format(num ?? 0);

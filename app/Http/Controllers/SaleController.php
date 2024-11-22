@@ -19,7 +19,7 @@ class SaleController extends Controller
     public function index()
     {
         return Inertia::render("sales/index", [
-            "sales" => Sale::sort()->paginate(10)
+            "sales" => Sale::with("customer")->sort()->paginate(10)
         ]);
     }
 
@@ -45,7 +45,7 @@ class SaleController extends Controller
     public function show(Sale $sale)
     {
         return Inertia::render("sales/show", [
-            "sale" => $sale->load("voucher:id,value,type")
+            "sale" => $sale->load("voucher:id,value,type", "detailSale", "customer:id,code,name")
         ]);
     }
 

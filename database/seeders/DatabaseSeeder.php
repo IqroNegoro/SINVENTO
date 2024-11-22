@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             VoucherSeeder::class,
             ItemSeeder::class,
+            CustomerSeeder::class,
             SaleSeeder::class,
             DetailSaleSeeder::class
         ]);

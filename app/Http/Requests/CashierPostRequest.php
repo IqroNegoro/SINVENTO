@@ -40,6 +40,7 @@ class CashierPostRequest extends FormRequest
                     }
                 },
             ],
+            "customer_id" => "nullable|exists:customers,code",
             "voucher_id" => "nullable|exists:vouchers,id",
             "items.*.sell_price" => "required|integer|exists:items,sell_price"
         ];

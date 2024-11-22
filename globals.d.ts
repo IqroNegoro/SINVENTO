@@ -43,8 +43,20 @@ declare global {
         updated_at: Date,
     }
 
+    interface Customer {
+        id: number,
+        code: string,
+        name: string,
+        phone: string,
+        visit: number,
+        total: number,
+        created_at: Date,
+        updated_at: Date,
+    }
+
     interface Sale {
         id: number,
+        customer: Customer | null,
         voucher: Voucher,
         subtotal: number,
         total: number,

@@ -20,6 +20,10 @@
                     <i class="bx bx-list-ul"></i>
                     <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Categories</p>
                 </Link>
+                <Link :href="route('customers.index')" class="link-btn" :class="{'link-active': route().current('customers.*')}">
+                    <i class="bx bx-group"></i>
+                    <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Customers</p>
+                </Link>
                 <Link :href="route('vouchers.index')" class="link-btn" :class="{'link-active': route().current('vouchers.*')}">
                     <i class="bx bxs-discount"></i>
                     <p class="whitespace-nowrap" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Vouchers</p>

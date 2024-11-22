@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\SaleController;
@@ -21,6 +22,7 @@ Route::middleware("auth")->group(function() {
     Route::get("/user", [UserController::class, "index"])->name("user.index");
     Route::put("/user", [UserController::class, "update"])->name("user.update");
     
+    Route::resource("customers", CustomerController::class);
     Route::resource("categories", CategoryController::class);
     Route::resource("items", ItemController::class);
     Route::resource("vouchers", VoucherController::class);

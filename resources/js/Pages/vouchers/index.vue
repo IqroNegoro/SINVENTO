@@ -41,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(voucher, i) in props.vouchers.data" :key="voucher.id" class="text-center">
+                    <tr v-for="(voucher, i) in vouchers.data" :key="voucher.id" class="text-center">
                         <td> {{ i + 1 }} </td>
                         <td> {{ voucher.code }} </td>
                         <td class="whitespace-nowrap max-w-64 relative">
@@ -68,7 +68,8 @@
                         <td> {{ voucher.valid_from }} {{ voucher.valid_to ? `- ${voucher.valid_to}` : "" }} </td>
                         <td> {{ voucher.stock ? voucher.stock : "-" }} </td>
                         <td> {{ voucher.used }} </td>
-                        <td :class="{ 'text-green-500': voucher.active }"> {{ voucher.active ? 'Active' : 'Not Active' }}
+                        <td :class="{ 'text-green-500': voucher.active }"> {{ voucher.active ? 'Active' : 'Not Active'
+                            }}
                         </td>
                         <td class="flex justify-center items-center gap-2">
                             <Link :href="route('vouchers.edit', voucher.id)">

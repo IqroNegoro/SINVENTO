@@ -47,7 +47,8 @@
             </div>
             <div>
                 <p>Value</p>
-                <div :class="{ 'border border-red-500': forms.errors.value }" class="flex items-center border rounded-sm">
+                <div :class="{ 'border border-red-500': forms.errors.value }"
+                    class="flex items-center border rounded-sm">
                     <p v-if="forms.type == 'fixed'" class="pl-2">Rp.</p>
                     <input type="number" class="border-none" placeholder="0" name="value" v-model="forms.value"
                         :disabled="forms.processing">
@@ -81,7 +82,8 @@
             </div>
             <div>
                 <p>Stock</p>
-                <div :class="{ 'border border-red-500': forms.errors.stock }" class="flex items-center border rounded-sm">
+                <div :class="{ 'border border-red-500': forms.errors.stock }"
+                    class="flex items-center border rounded-sm">
                     <i class="bx bx-x pl-2"></i>
                     <input :class="{ 'border border-red-500': forms.errors.stock }" type="number" placeholder="0"
                         class="border-none" name="stock" v-model="forms.stock" :disabled="forms.processing">
@@ -108,7 +110,7 @@
                 </Link>
                 <button class="bg-primary py-2 text-sm px-4" type="submit" :disabled="forms.processing">
                     <i v-if="forms.processing" class="bx bx-loader-alt bx-spin"></i>
-                    <p v-else>Edit</p>
+                    <p v-else>Update</p>
                 </button>
             </div>
         </form>
@@ -118,14 +120,12 @@
 import '@vuepic/vue-datepicker/dist/main.css'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import { Link, useForm } from '@inertiajs/vue3';
-import { watch } from 'vue';
 
 const props = defineProps<{
     voucher: Omit<Voucher, "created_at" | "updated_at">
 }>();
 
-const forms = useForm<Omit<Voucher, "used" | "created_at" | "updated_at">>({
-    id: props.voucher.id,
+const forms = useForm<Omit<Voucher, "id" | "used" | "created_at" | "updated_at">>({
     code: props.voucher.code,
     name: props.voucher.name,
     description: props.voucher.description,

@@ -13,8 +13,6 @@ class Sale extends Model
         "id"
     ];
 
-    protected $with = ["voucher", "detailSale"];
-
     public function detailSale() {
         return $this->hasMany(DetailSale::class);
     }
@@ -23,8 +21,16 @@ class Sale extends Model
         return $this->belongsTo(Voucher::class);
     }
 
+    public function customer() {
+        return $this->belongsTo(Customer::class, "customer_id", "code");
+    }
+
     public function scopeSort(Builder $query) {
-        return $query->orderBy(request("sort") ?? "created_at", "DESC");
+        return $query->when(request("sort") == "customer", function(Builder $query, bool $value) {
+            return $query->orderBy(Customer::select(["name"])->whereColumn("customers.code", "sales.customer_id"));
+        }, function(Builder $query) {
+            return $query->orderBy(request("sort") ?? "created_at");
+        });
     }
 
     static public function boot() {
@@ -35,12 +41,20 @@ class Sale extends Model
                 $sale->voucher->decrement("stock");
                 $sale->voucher->increment("used");
             }
+
+            if ($sale->customer) {
+                $sale->customer->increment("total", $sale->total);
+            }
         });
 
         static::deleting(function (Sale $sale) {
             $sale->detailSale->each(function ($value) {
                 $value->delete();
             });
+
+            if ($sale->customer) {
+                $sale->customer->decrement("total", $sale->total);
+            }
         });
     }
 }

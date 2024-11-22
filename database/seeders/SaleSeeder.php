@@ -16,28 +16,28 @@ class SaleSeeder extends Seeder
     {
         Sale::insert([
             [
-                // "user_id" => 1,
+                "customer_id" => "C001",
                 "subtotal" => 315000,
                 "total" => 315000,
                 "created_at" =>  Carbon::now(),
                 "updated_at" => Carbon::now()
             ],
             [
-                // "user_id" => 1,
+                "customer_id" => null,
                 "subtotal" => 275000,
                 "total" => 275000,
                 "created_at" =>  Carbon::now()->subDay(),
                 "updated_at" => Carbon::now()->subDay()
             ],
             [
-                // "user_id" => 1,
+                "customer_id" => null,
                 "subtotal" => 710000,
                 "total" => 710000,
                 "created_at" =>  Carbon::now()->subDays(2),
                 "updated_at" => Carbon::now()->subDays(2)
             ],
             [
-                // "user_id" => 1,
+                "customer_id" => null,
                 "subtotal" => 20000,
                 "total" => 20000,
                 "created_at" =>  Carbon::now()->subDays(3),
