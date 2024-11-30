@@ -34,7 +34,7 @@ class VoucherController extends Controller
     public function store(StoreVoucherRequest $request)
     {
         if (Voucher::create($request->validated())) {
-            return redirect()->route('vouchers.index')->with("success", "Voucher has been added");
+            return to_route('vouchers.index')->with("success", "Voucher has been added");
         }
 
         return back()->with("error", "Cannot create voucher, try again");
@@ -84,5 +84,18 @@ class VoucherController extends Controller
         } catch (Exception $e) {
             return back()->with("error", "Cannot removed $voucher->name voucher");
         }
+    }
+
+    /**
+     * Update voucher active status
+     */
+    public function updateStatus(Voucher $voucher)
+    {
+        if ($voucher->update(['active' => !$voucher->active])) {
+            $status = $voucher->active ? 'activated' : 'deactivated';
+            return back()->with('success', "Voucher $voucher->name has been $status");
+        }
+
+        return back()->with('error', "Failed to update status for voucher $voucher->name");
     }
 }

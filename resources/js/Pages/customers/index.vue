@@ -38,6 +38,7 @@
                         <th class="font-light">Phone</th>
                         <th class="font-light">Visit</th>
                         <th class="font-light">Total Spend</th>
+                        <th class="font-light">Detail</th>
                         <th class="font-light rounded-tr-md">Action</th>
                     </tr>
                 </thead>
@@ -49,6 +50,11 @@
                         <td> {{ customer.phone }} </td>
                         <td> {{ customer.visit }} </td>
                         <td> {{ formatRp(customer.total) }} </td>
+                        <td>
+                            <Link :href="route('customers.show', customer.id)" class="rounded-sm bg-primary py-2 px-4">
+                            Detail
+                            </Link>
+                        </td>
                         <td class="flex justify-center items-center gap-2">
                             <Link :href="route('customers.edit', customer.id)">
                             <i class="bx bx-edit"></i>

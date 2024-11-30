@@ -23,9 +23,15 @@ class UpdateCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "code" => "required|string|unique:customers,code,$this->code",
+            "code" => "required|string|unique:customers,code," . $this->customer->id,
             "name" => "required|string",
-            "phone" => "required|string|unique:customers,phone,$this->phone",
+            "phone" => "required|string|unique:customers,phone," . $this->customer->id,
         ];
+    }
+
+    protected function prepareForValidation() {
+        $this->merge([
+            "code" => strtoupper($this->code)
+        ]);
     }
 }

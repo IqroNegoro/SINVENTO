@@ -28,4 +28,10 @@ class StoreCustomerRequest extends FormRequest
             "phone" => "required|string|unique:customers",
         ];
     }
+
+    protected function prepareForValidation() {
+        $this->merge([
+            "code" => strtoupper($this->code)
+        ]);
+    }
 }

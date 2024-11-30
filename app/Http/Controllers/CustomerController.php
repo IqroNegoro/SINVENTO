@@ -44,7 +44,10 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return Inertia::render("customers/show", [
+            "customer" => $customer,
+            "sales" => $customer->sales()->paginate(10)
+        ]);
     }
 
     /**

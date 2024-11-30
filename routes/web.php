@@ -26,6 +26,7 @@ Route::middleware("auth")->group(function() {
     Route::resource("categories", CategoryController::class);
     Route::resource("items", ItemController::class);
     Route::resource("vouchers", VoucherController::class);
+    Route::put("/vouchers/{voucher}/status", [VoucherController::class, "updateStatus"])->name("vouchers.status.update");
     
     Route::get("sales/report/pdf", [SaleController::class, "pdf"])->name("sales.report.pdf");
     Route::get("sales/report/excel", [SaleController::class, "excel"])->name("sales.report.excel");

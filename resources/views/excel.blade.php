@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <td style="font-weight: 600;" colspan="7" align="center">Warung Sembako Ibu Elis</td>
+            <td style="font-weight: 600;" colspan="7" align="center">{{ auth()->user()->store_name }}</td>
         </tr>
         <tr>
             <td style="font-weight: 600;" colspan="7" align="center">Laporan Penjualan</td>

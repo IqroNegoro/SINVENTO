@@ -12,6 +12,11 @@
                 <p class="text-red-500"> {{ forms.errors.name }} </p>
             </div>
             <div>
+                <p>Store Name</p>
+                <input type="text" :class="{'border border-red-500': forms.errors.store_name}" v-model="forms.store_name">
+                <p class="text-red-500"> {{ forms.errors.store_name }} </p>
+            </div>
+            <div>
                 <p>Username</p>
                 <input type="text" :class="{'border border-red-500': forms.errors.username}" v-model="forms.username">
                 <p class="text-red-500"> {{ forms.errors.username }} </p>
@@ -35,16 +40,19 @@ const props = defineProps<{
         id: number,
         username: string,
         password: string,
-        name: string
+        name: string,
+        store_name: string
     }
 }>();
 
 const forms = useForm<{
     username: string,
     password: string,
-    name: string
+    name: string,
+    store_name: string
 }>({
     name: props.user.name,
+    store_name: props.user.store_name,
     username: "",
     password: "",
 })

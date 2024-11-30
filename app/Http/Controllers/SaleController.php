@@ -91,7 +91,14 @@ class SaleController extends Controller
             "dates" => [Carbon::createFromDate(request("startDate"))->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate(request("endDate"))->locale("id-ID")->getTranslatedMonthName(), Carbon::createFromDate(request("endDate"))->year]
         ])->setPaper("A4");
 
-        return $pdf->stream('report.pdf');
+        $startDate = Carbon::parse(request('startDate'))->locale('id-ID');
+        $endDate = Carbon::parse(request('endDate'))->locale('id-ID');
+        $filename = "Sales report " . $startDate->getTranslatedMonthName();
+        if ($startDate->getTranslatedMonthName() !== $endDate->getTranslatedMonthName()) {
+            $filename .= " - " . $endDate->getTranslatedMonthName(); 
+        }
+        $filename .= $endDate->year;
+        return $pdf->stream($filename . '.pdf');
     }
 
     public function excel()
@@ -101,6 +108,14 @@ class SaleController extends Controller
             "endDate" => "required|date",
         ]);
 
-        return Excel::download(new SalesExport(request("startDate"), request("endDate")), "sales.xlsx");
+        $startDate = Carbon::parse(request('startDate'))->locale('id-ID');
+        $endDate = Carbon::parse(request('endDate'))->locale('id-ID');
+        $filename = "Sales report " . $startDate->getTranslatedMonthName();
+        if ($startDate->getTranslatedMonthName() !== $endDate->getTranslatedMonthName()) {
+            $filename .= " - " . $endDate->getTranslatedMonthName();
+        }
+        $filename .= $endDate->year;
+
+        return Excel::download(new SalesExport(request("startDate"), request("endDate")), $filename . ".xlsx");
     }
 }

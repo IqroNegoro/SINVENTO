@@ -2,7 +2,7 @@
     <div class="flex overflow-hidden">
         <nav :class="{'w-96': lock, 'w-24': !lock}" class="hover:w-96 group transition-[width] duration-300 p-4 flex flex-col gap-4 overflow-clip overflow-y-auto max-h-dvh">
             <div class="w-full flex justify-between h-max relative">
-                <h1 class="font-medium text-2xl" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">Dashboard</h1>
+                <h1 class="font-bold text-2xl" :class="{'opacity-0 group-hover:opacity-100': !lock, 'opacity-100': lock}">SINVENTO</h1>
                 <button class="w-max absolute top-1/2 -translate-y-1/2 group-hover:translate-x-0 group-hover:right-0 flex justify-center items-center text-xl hover:bg-primary hover:text-white transition-all duration-150 p-2 rounded-full" :class="{'bg-primary right-0 translate-x-0': lock, 'right-1/2 translate-x-1/2': !lock}" @click="lock = !lock">
                     <i :class="{'rotate-180': lock}" class="bx bx-chevrons-right group-hover:rotate-180 duration-300 transition-transform"></i>
                 </button>

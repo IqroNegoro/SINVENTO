@@ -1,6 +1,6 @@
 <div style="width: 100%; display: flex; flex-direction: column; gap: 1rem; justify-items: center; font-family: Arial">
     <div style="font-weight: 600; text-align: center">
-        <p>Warung Sembako Ibu Elis</p>
+        <p>{{ auth()->user()->store_name }}</p>
         <p>Laporan Penjualan</p>
         <p>Periode {{ $dates[0] }} @if($dates[0] != $dates[1]) - {{ $dates[1] }} @endif {{ $dates[2] }} </p>
     </div>

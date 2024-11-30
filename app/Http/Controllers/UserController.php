@@ -17,10 +17,12 @@ class UserController extends Controller
     public function update(Request $request) {
         $data = $request->validate([
             "name" => "required|string|max:255",
-            "username" => "required|string|max:255",
-            "password" => "required|string|max:255",
+            "store_name" => "required|string|max:255",
+            "username" => "exclude_if:username,null|string|max:255",
+            "password" => "exclude_if:password,null|string|max:255",
         ]);
-        if (auth()->user->update($data)) {
+
+        if (auth()->user()->update($data)) {
             return back()->with("success", "Success update credentials");
         }
 

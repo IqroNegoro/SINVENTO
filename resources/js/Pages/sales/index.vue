@@ -154,7 +154,7 @@ import { Link, router, usePage } from '@inertiajs/vue3';
 import moment from "moment";
 import { Ref, ref, watch } from 'vue';
 import '@vuepic/vue-datepicker/dist/main.css'
-import VueDatePicker, { DatePickerInstance } from '@vuepic/vue-datepicker';
+import VueDatePicker from '@vuepic/vue-datepicker';
 
 const menuExportPDF: Ref<boolean> = ref(false);
 const menuExportExcel: Ref<boolean> = ref(false);
@@ -164,6 +164,7 @@ const dates: Ref<Array<[Date, Date]>> = ref([]);
 const sort: Ref<null | string | "date" | "total"> = ref(new URLSearchParams(window.location.search).get("sort") || "");
 
 const props = defineProps<{
+    customer: Customer,
     sales: {
         from: number,
         to: number,

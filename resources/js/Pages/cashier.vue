@@ -2,29 +2,32 @@
     <div class="flex flex-col gap-4 h-full overflow-hidden">
         <h1 class="font-semibold text-3xl">Cashier</h1>
         <div class="flex gap-2 w-full h-full overflow-y-auto overflow-hidden">
-            <div
-                class="grid grid-flow-row grid-cols-4 p-4 gap-4 items-start justify-start bg-white overflow-y-auto w-full h-full">
+            <div class="flex flex-col p-2 gap-0 items-start justify-start bg-white overflow-y-auto w-full h-full">
                 <button v-for="item in items" :key="item.id" @click="handleAddItem(item)"
-                    class="flex flex-col justify-start gap-2">
-                    <img :src="`/storage/${item.image}`" :alt="item.name"
-                        class="w-32 rounded-sm aspect-square object-cover object-center"
-                        :class="{ 'grayscale': item.stock == 0 }">
-                    <p class="font-semibold text-sm text-left"> {{ item.name }} </p>
-                    <p class="font-medium text-xs">{{ formatRp(item.sell_price) }} </p>
-                    <p class="font-light text-xs">x{{ item.stock }}</p>
+                    class="w-full flex flex-row gap-4 items-center py-4 px-3 hover:bg-gray-50 border-b border-gray-100">
+                    <div class="relative w-16 shrink-0">
+                        <img :src="`/storage/${item.image}`" :alt="item.name"
+                            class="w-full aspect-square object-cover object-center"
+                            :class="{ 'grayscale': item.stock == 0 }">
+                    </div>
+                    <div class="flex flex-col gap-1.5 flex-1 text-left">
+                        <p class="font-semibold text-base leading-tight tracking-tight text-gray-900"> {{ item.name }} </p>
+                        <p class="font-medium text-sm text-primary tracking-wide">{{ formatRp(item.sell_price) }} </p>
+                        <p class="font-normal text-xs text-gray-500">Stock: {{ item.stock }}</p>
+                    </div>
                 </button>
             </div>
             <form @submit.prevent="forms.post(route('cashier.store'), {
                 onSuccess: () => forms.reset()
-            })" class="bg-white flex flex-col justify-between w-1/2 max-h-full">
-                <table class="table-fixed" cellpadding="16">
+            })" class="bg-white flex flex-col justify-between w-[500px] min-w-[500px] max-h-full">
+                <table class="table-fixed w-full" cellpadding="16">
                     <thead class="bg-primary text-white rounded-md sticky top-0 z-1">
                         <tr class="text-sm">
-                            <th class="font-light rounded-tl-md">Item</th>
-                            <th class="font-light">Qty</th>
-                            <th class="font-light">Price</th>
-                            <th class="font-light">Total</th>
-                            <th class="font-light rounded-tr-md">
+                            <th class="font-light rounded-tl-md w-[30%]">Item</th>
+                            <th class="font-light w-[15%]">Qty</th>
+                            <th class="font-light w-[20%]">Price</th>
+                            <th class="font-light w-[20%]">Total</th>
+                            <th class="font-light rounded-tr-md w-[15%]">
                                 <i class="bx bx-trash"></i>
                             </th>
                         </tr>
@@ -32,19 +35,19 @@
                 </table>
                 <div class="w-full h-full overflow-y-auto">
                     <template v-if="forms.items.length">
-                        <table class="table-fixed" cellpadding="16">
+                        <table class="table-fixed w-full" cellpadding="16">
                             <tbody>
                                 <tr v-for="item in forms.items" :key="item.id" class="text-center text-xs">
-                                    <td> {{ item.name }} </td>
-                                    <td>
+                                    <td class="w-[30%]"> {{ item.name }} </td>
+                                    <td class="w-[15%]">
                                         <input type="tel" :value="item.qty" class="w-10"
                                             @input="handleQty($event, item)">
                                     </td>
-                                    <td> {{ formatRp(item.sell_price) }} </td>
-                                    <td> {{ formatRp(item.qty * item.sell_price!) }} </td>
-                                    <td>
+                                    <td class="w-[20%]"> {{ formatRp(item.sell_price) }} </td>
+                                    <td class="w-[20%]"> {{ formatRp(item.qty * item.sell_price) }} </td>
+                                    <td class="w-[15%]">
                                         <div class="flex justify-center items-center gap-2">
-                                            <button @click="handleDelete(item)"
+                                            <button @click="handleDelete(item)" type="button"
                                                 class="flex justify-center items-center">
                                                 <i class="bx bxs-trash-alt"></i>
                                             </button>

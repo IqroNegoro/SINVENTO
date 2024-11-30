@@ -12,18 +12,19 @@ class Customer extends Model
     ];
 
     public function sales() {
-        return $this->hasMany(Sale::class);
+        return $this->hasMany(Sale::class, "customer_id", "code");
     } 
     
     public function scopeSort(Builder $query) {
-        return $query->orderBy(request("sort") ?? "created_at", "DESC");
+        return $query->orderBy(request("sort") ?? "created_at", request("sort") ? "DESC" : "ASC");
     }
 
     public function scopeSearch(Builder $query) {
         $keyword = request("search");
         return $query->whereAny([
             "code",
-            "name"
-        ], "LIKE", "%$keyword%")->orWhere("visit", "<=", "$keyword")->orWhere("total", "<=", "$keyword");
+            "name",
+            "phone"
+        ], "LIKE", "%$keyword%");
     }
 }

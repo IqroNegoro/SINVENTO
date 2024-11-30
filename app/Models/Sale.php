@@ -44,6 +44,7 @@ class Sale extends Model
 
             if ($sale->customer) {
                 $sale->customer->increment("total", $sale->total);
+                $sale->customer->increment("visit");
             }
         });
 

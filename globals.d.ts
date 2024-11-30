@@ -1,4 +1,5 @@
-import { route as routeFn } from 'ziggy-js';
+import 'vue';
+
 declare global {
     interface Link {
         url: string,
@@ -75,10 +76,42 @@ declare global {
     }
 }
 
-declare module 'vue' {
+// Define Ziggy types locally
+type Config = {
+    url: string;
+    port: number | null;
+    defaults: Record<string, any>;
+    routes: Record<string, any>;
+};
+
+type RouteParam = 
+    | string
+    | number
+    | boolean
+    | Record<string, any>;
+
+type RouteParamsWithQueryOverload = 
+    | Record<string, RouteParam>
+    | Record<string, RouteParam>[];
+
+// Declare the global route function
+declare function route(
+    name: string,
+    params?: RouteParamsWithQueryOverload | RouteParam,
+    absolute?: boolean,
+    config?: Config
+): string;
+
+// Properly extend Vue types
+declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
-        route: typeof routeFn;
+        route: typeof route;
     }
+}
+
+// Add to Window interface
+interface Window {
+    route: typeof route;
 }
 
 

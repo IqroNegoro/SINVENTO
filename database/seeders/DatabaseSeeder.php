@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         User::create([
             'name' => 'Admin',
+            'store_name' => 'Warung Sembako Ibu Elis',
             'username' => 'admin',
             'password' => 'admin',
         ]);

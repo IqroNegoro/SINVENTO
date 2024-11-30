@@ -32,11 +32,11 @@ class UpdateVoucherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "code" => "required|string|unique:vouchers,code,$this->id",
+            "code" => "required|string|unique:vouchers,code," . $this->voucher->id,
             "name" => "required|string",
-            "description" => "required|string",
+            "description" => "required|string", 
             "type" => "required|in:fixed,percentage",
-            "value" => "required|integer|min:1" . ($this->input("type") == "percentage" ? "|max:100" : ""),
+            "value" => "required|integer|min:1" . ($this->request->get("type") == "percentage" ? "|max:100" : ""),
             "valid_from" => "required|date" . ($this->request->get("valid_to") ? "|before_or_equal:valid_to" : ""),
             "valid_to" => $this->request->get("valid_to") ? "date|after_or_equal:valid_from" : "",
             "stock" => $this->request->get("stock") ? "integer|min:1" : "",

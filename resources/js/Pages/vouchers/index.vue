@@ -68,16 +68,31 @@
                         <td> {{ voucher.valid_from }} {{ voucher.valid_to ? `- ${voucher.valid_to}` : "" }} </td>
                         <td> {{ voucher.stock ? voucher.stock : "-" }} </td>
                         <td> {{ voucher.used }} </td>
-                        <td :class="{ 'text-green-500': voucher.active }"> {{ voucher.active ? 'Active' : 'Not Active'
-                            }}
+                        <td>
+                            <div class="flex items-center justify-center">
+                                <form method="POST" @submit.prevent="router.put(route('vouchers.status.update', voucher.id))"
+                                     class="w-12 h-6 relative rounded-full pt-0.5 cursor-pointer group" 
+                                     :class="{ 'bg-light-dark': voucher.active, 'bg-gray-200': !voucher.active }">
+                                    <button type="submit" class="w-full h-full">
+                                        <div :class="{ 
+                                            'translate-x-6 bg-white': voucher.active, 
+                                            'translate-x-0 bg-white': !voucher.active 
+                                        }"
+                                             class="absolute left-0.5 top-0.5 w-5 h-5 transform rounded-full transition-transform duration-200 ease-in-out">
+                                        </div>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
-                        <td class="flex justify-center items-center gap-2">
-                            <Link :href="route('vouchers.edit', voucher.id)">
-                            <i class="bx bx-edit"></i>
-                            </Link>
-                            <button @click="router.delete(route('vouchers.destroy', voucher.id))">
-                                <i class="bx bxs-trash-alt"></i>
-                            </button>
+                        <td>
+                            <div class="flex justify-center items-center gap-2">
+                                <Link :href="route('vouchers.edit', voucher.id)">
+                                <i class="bx bx-edit"></i>
+                                </Link>
+                                <button @click="router.delete(route('vouchers.destroy', voucher.id))">
+                                    <i class="bx bxs-trash-alt"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

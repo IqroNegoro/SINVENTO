@@ -45,4 +45,10 @@ class CashierPostRequest extends FormRequest
             "items.*.sell_price" => "required|integer|exists:items,sell_price"
         ];
     }
+
+    protected function prepareForValidation() {
+        $this->merge([
+            "customer_id" => strtoupper($this->customer_id)
+        ]);
+    }
 }
