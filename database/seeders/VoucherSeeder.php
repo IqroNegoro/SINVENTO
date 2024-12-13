@@ -20,8 +20,8 @@ class VoucherSeeder extends Seeder
             "description" => "Diskon untuk 100 orang pertama pelanggan baru!!!",
             "type" => "percentage",
             "value" => 50,
-            "valid_from" => Carbon::today(),
-            "valid_to" => Carbon::today()->addDays(7),
+            "valid_from" => Carbon::now(),
+            "valid_to" => Carbon::now()->addDays(7),
             "stock" => 100,
             "active" => true
         ]);

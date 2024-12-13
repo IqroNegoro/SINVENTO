@@ -65,7 +65,7 @@
                         </td>
                         <td class="first-letter:uppercase"> {{ voucher.type }} </td>
                         <td> {{ voucher.type == 'percentage' ? `${voucher.value}%` : formatRp(voucher.value) }} </td>
-                        <td> {{ voucher.valid_from }} {{ voucher.valid_to ? `- ${voucher.valid_to}` : "" }} </td>
+                        <td> {{ voucher.valid_from_formatted }} {{ voucher.valid_to_formatted ? `- ${voucher.valid_to_formatted}` : "" }} </td>
                         <td> {{ voucher.stock ? voucher.stock : "-" }} </td>
                         <td> {{ voucher.used }} </td>
                         <td>

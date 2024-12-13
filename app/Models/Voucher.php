@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -13,14 +14,21 @@ class Voucher extends Model
         "id"
     ];
 
-    protected function casts(): array
+    protected $appends = [
+        "valid_from_formatted",
+        "valid_to_formatted"
+    ];
+
+    public function getValidFromFormattedAttribute()
     {
-        return [
-            'valid_from' => 'date:Y/m/d',
-            'valid_to' => 'date:Y/m/d'
-        ];
+        return $this->valid_from ? Carbon::parse($this->valid_from)->format('Y/m/d') : null;
     }
 
+    public function getValidToFormattedAttribute()
+    {
+        return $this->valid_to ? Carbon::parse($this->valid_to)->format('Y/m/d') : null;
+    }
+    
     public function sales()
     {
         return $this->hasMany(Sale::class);

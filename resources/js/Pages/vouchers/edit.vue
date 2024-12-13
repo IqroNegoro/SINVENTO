@@ -60,8 +60,6 @@
             </div>
             <div>
                 <p>Valid Until</p>
-                {{ forms.valid_from }}
-                {{ forms.valid_to }}
                 <div class="flex flex-col justify-center w-max">
                     <div class="flex justify-center items-center gap-2">
                         <VueDatePicker v-model="forms.valid_from" :enable-time-picker="false" placeholder="Valid From"
@@ -125,14 +123,14 @@ const props = defineProps<{
     voucher: Omit<Voucher, "created_at" | "updated_at">
 }>();
 
-const forms = useForm<Omit<Voucher, "id" | "used" | "created_at" | "updated_at">>({
+const forms = useForm<Omit<Voucher, "id" | "used" | "created_at" | "updated_at" | "valid_from_formatted" | "valid_to_formatted">>({
     code: props.voucher.code,
     name: props.voucher.name,
     description: props.voucher.description,
     type: props.voucher.type,
     value: props.voucher.value,
     valid_from: props.voucher.valid_from,
-    valid_to: props.voucher.valid_to ? props.voucher.valid_to : null,
+    valid_to: props.voucher.valid_to,
     stock: props.voucher.stock,
     active: props.voucher.active ? true : false
 });

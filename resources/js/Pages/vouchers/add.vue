@@ -117,7 +117,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import { Link, useForm } from '@inertiajs/vue3';
 
-const forms = useForm<Omit<Voucher, "id" | "used" | "created_at" | "updated_at">>({
+const forms = useForm<Omit<Voucher, "id" | "used" | "created_at" | "updated_at" | "valid_from_formatted" | "valid_to_formatted">>({
     code: "",
     name: "",
     description: "",

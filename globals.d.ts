@@ -24,6 +24,8 @@ declare global {
         value: number,
         valid_from: Date | number,
         valid_to: Date | number | null,
+        valid_from_formatted: string | null,
+        valid_to_formatted: string | null,
         stock: number | null,
         used: number,
         active: boolean,

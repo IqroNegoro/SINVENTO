@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string("description")->nullable();
             $table->enum("type", ["fixed", "percentage"])->default("percentage");
             $table->integer("value")->default(0);
-            $table->date("valid_from")->useCurrent();
-            $table->date("valid_to")->nullable();
+            $table->dateTime("valid_from")->useCurrent();
+            $table->dateTime("valid_to")->nullable();
             $table->integer("stock")->nullable();
             $table->integer("used")->default(0);
             $table->boolean("active")->default(false);

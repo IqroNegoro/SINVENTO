@@ -19,8 +19,8 @@ class UpdateVoucherRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            "valid_from" => $this->valid_from ? Carbon::createFromDate($this->valid_from)->toDateString() : $this->valid_from,
-            "valid_to" => $this->valid_to ? Carbon::createFromDate($this->valid_to)->toDateString() : $this->valid_to,
+            "valid_from" => $this->valid_from ? Carbon::parse($this->valid_from)->toDateTimeString() : $this->valid_from,
+            "valid_to" => $this->valid_to ? Carbon::parse($this->valid_to)->toDateTimeString() : $this->valid_to,
         ]);
     }
 
