@@ -14,6 +14,11 @@ class Voucher extends Model
         "id"
     ];
 
+    protected $casts = [
+        "valid_from" => "date",
+        "valid_to" => "date"
+    ];
+
     protected $appends = [
         "valid_from_formatted",
         "valid_to_formatted"
