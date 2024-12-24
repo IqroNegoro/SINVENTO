@@ -102,7 +102,7 @@
                             v-if="$page.props.errors?.startDate || $page.props.errors?.endDate"> Please select the dates
                         </p>
                     </div>
-                    <button :disabled="!(dates?.[0] && dates?.[1]) || state" @click="router.get(route('sales.report.pdf'), {
+                    <!-- <button :disabled="!(dates?.[0] && dates?.[1]) || state" @click="router.get(route('sales.report.pdf'), {
                         startDate: dates[0],
                         endDate: dates[1]
                     }, {
@@ -114,7 +114,18 @@
                         <p v-else>
                             Generate Report PDF
                         </p>
-                    </button>
+                    </button> -->
+                    <a :disabled="!(dates?.[0] && dates?.[1]) || state" :href="route('sales.report.pdf', {
+                        _query: {
+                            startDate: dates[0],
+                            endDate: dates[1]
+                        },
+                    })" class="bg-primary py-2 px-1 flex justify-center items-center">
+                        <i v-if="state" class="bx bx-loader-alt bx-spin"></i>
+                        <p v-else>
+                            Generate Report PDF
+                        </p>
+                    </a>
                 </div>
             </div>
         </div>
